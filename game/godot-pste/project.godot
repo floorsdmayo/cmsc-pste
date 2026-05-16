@@ -18,3 +18,11 @@ config/name="godot-pste"
 run/main_scene="uid://d2jnpgtqybq65"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scripts/GameManager.gd"
+
+[global_group]
+
+room_container=""
