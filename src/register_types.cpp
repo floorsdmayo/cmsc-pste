@@ -4,7 +4,7 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 #include "stamina_system.h"
-
+#include "wirefixer.h"
 
 using namespace godot;
 
@@ -12,6 +12,7 @@ void initialize_pste_module(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) return;
     // register other classes here
     ClassDB::register_class<StaminaSystem>();
+    ClassDB::register_class<WireFixer>();
 }
 
 void uninitialize_pste_module(ModuleInitializationLevel p_level) {

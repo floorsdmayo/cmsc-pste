@@ -74,18 +74,30 @@ func change_room(scene_path: String) -> void:
 	container.add_child(new_room)
 
 func launch_minigame(scene_path: String) -> void:
+	# hide current room's canvas layer
+	var container = get_tree().get_first_node_in_group("room_container")
+	for child in container.get_children():
+		for node in child.get_children():
+			if node is CanvasLayer:
+				node.hide()
 	var mg = load(scene_path).instantiate()
 	get_tree().root.add_child(mg)
 	mg.completed.connect(_on_minigame_done.bind(mg))
-
+	
 func _on_minigame_done(success: bool, mg: Node) -> void:
+	# show current room's canvas layer again
+	var container = get_tree().get_first_node_in_group("room_container")
+	for child in container.get_children():
+		for node in child.get_children():
+			if node is CanvasLayer:
+				node.show()
 	minigame_completed.emit(mg.minigame_id, success)
 	if success:
 		gain_heart()
 	else:
 		lose_heart()
 	mg.queue_free()
-
+	
 func add_to_inventory(item: String) -> void:
 	if item not in inventory:
 		inventory.append(item)
