@@ -12,7 +12,7 @@ var hearts: int = 3
 var max_hearts: int = 3
 
 # gamestates
-var current_floor: int = 6
+var current_floor: int = 5
 var elevator_unlocked: bool = false
 var secret_key: bool = false
 var inventory: Array[String] = []
@@ -20,13 +20,15 @@ var game_flags: Dictionary = {}
 
 # stamina cost (set for maximum ragebait, you can't directly run down from stairs)
 var stair_costs: Dictionary = {
-	6: 1,
-	5: 2,
-	4: 2,
+	5: 3,
+	4: 3,
 	3: 3,
 	2: 3,
-	1: 4
 }
+
+# temp - remove after testing
+func _ready() -> void:
+	game_flags["floor6_unlocked"] = true
 
 func use_stairs(from_floor: int) -> bool:
 	var cost = stair_costs.get(from_floor, 1)
@@ -35,7 +37,6 @@ func use_stairs(from_floor: int) -> bool:
 		stamina_changed.emit(stamina)
 		return true
 	else:
-		# not enough stamina
 		return false
 
 func gain_stamina(amount: int) -> void:
@@ -61,10 +62,10 @@ func rest_at_bench() -> void:
 func respawn() -> void:
 	stamina = max_stamina
 	hearts = max_hearts
-	current_floor = 6
+	current_floor = 5
 	stamina_changed.emit(stamina)
 	hearts_changed.emit(hearts)
-	change_room("res://scenes/rooms/Floor6.tscn")
+	change_room("res://scenes/rooms/Floor5.tscn")
 
 func change_room(scene_path: String) -> void:
 	var container = get_tree().get_first_node_in_group("room_container")
@@ -74,7 +75,6 @@ func change_room(scene_path: String) -> void:
 	container.add_child(new_room)
 
 func launch_minigame(scene_path: String) -> void:
-	# hide current room's canvas layer
 	var container = get_tree().get_first_node_in_group("room_container")
 	for child in container.get_children():
 		for node in child.get_children():
@@ -83,9 +83,8 @@ func launch_minigame(scene_path: String) -> void:
 	var mg = load(scene_path).instantiate()
 	get_tree().root.add_child(mg)
 	mg.completed.connect(_on_minigame_done.bind(mg))
-	
+
 func _on_minigame_done(success: bool, mg: Node) -> void:
-	# show current room's canvas layer again
 	var container = get_tree().get_first_node_in_group("room_container")
 	for child in container.get_children():
 		for node in child.get_children():
@@ -97,7 +96,7 @@ func _on_minigame_done(success: bool, mg: Node) -> void:
 	else:
 		lose_heart()
 	mg.queue_free()
-	
+
 func add_to_inventory(item: String) -> void:
 	if item not in inventory:
 		inventory.append(item)

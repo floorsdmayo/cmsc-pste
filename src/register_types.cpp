@@ -5,6 +5,8 @@
 #include <godot_cpp/godot.hpp>
 #include "stamina_system.h"
 #include "wirefixer.h"
+#include "snake_game.h"
+#include "pong_game.h"
 
 using namespace godot;
 
@@ -13,6 +15,8 @@ void initialize_pste_module(ModuleInitializationLevel p_level) {
     // register other classes here
     ClassDB::register_class<StaminaSystem>();
     ClassDB::register_class<WireFixer>();
+    ClassDB::register_class<SnakeLogic>();
+    ClassDB::register_class<PongGame>();
 }
 
 void uninitialize_pste_module(ModuleInitializationLevel p_level) {

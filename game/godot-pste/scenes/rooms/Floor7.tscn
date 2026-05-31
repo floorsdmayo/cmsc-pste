@@ -1,9 +1,15 @@
 [gd_scene format=3 uid="uid://dfg0hawpnntbq"]
 
-[ext_resource type="Script" uid="uid://b2u7vy6r4lpan" path="res://scripts/Floor7.gd" id="1_47nms"]
+[sub_resource type="GDScript" id="GDScript_euak0"]
+script/source = "extends FloorBase
 
-[node name="Floor7" type="Node2D" unique_id=212878587]
-script = ExtResource("1_47nms")
+func _ready() -> void:
+	$CanvasLayer/StairsDownButton.pressed.connect(go_down)
+	$CanvasLayer/StairsUpButton.pressed.connect(go_up)
+"
+
+[node name="Floor6" type="Node2D" unique_id=212878587]
+script = SubResource("GDScript_euak0")
 floor_number = 7
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=570791287]
