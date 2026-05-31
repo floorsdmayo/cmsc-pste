@@ -2,6 +2,7 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <cstdlib>
 #include <ctime>
+#include <godot_cpp/variant/utility_functions.hpp>
 
 using namespace godot;
 
@@ -29,6 +30,7 @@ void SnakeLogic::_bind_methods() {
     ClassDB::bind_method(D_METHOD("step"), &SnakeLogic::step);
     ClassDB::bind_method(D_METHOD("clear_walls"), &SnakeLogic::clear_walls);
     ClassDB::bind_method(D_METHOD("clear_statues"), &SnakeLogic::clear_statues);
+    ClassDB::bind_method(D_METHOD("trim_to", "length"), &SnakeLogic::trim_to);
     ClassDB::bind_method(D_METHOD("get_score"), &SnakeLogic::get_score);
     ClassDB::bind_method(D_METHOD("get_phase"), &SnakeLogic::get_phase);
     ClassDB::bind_method(D_METHOD("is_game_over"), &SnakeLogic::is_game_over);
@@ -39,6 +41,7 @@ void SnakeLogic::_bind_methods() {
     ClassDB::bind_method(D_METHOD("get_statues"), &SnakeLogic::get_statues);
     ClassDB::bind_method(D_METHOD("get_move_speed"), &SnakeLogic::get_move_speed);
     ClassDB::bind_method(D_METHOD("get_light_radius"), &SnakeLogic::get_light_radius);
+    ClassDB::bind_method(D_METHOD("reset_for_pong"), &SnakeLogic::reset_for_pong);
 
     ADD_SIGNAL(MethodInfo("apple_eaten", PropertyInfo(Variant::INT, "score")));
     ADD_SIGNAL(MethodInfo("phase_changed", PropertyInfo(Variant::INT, "new_phase")));
@@ -226,7 +229,7 @@ bool SnakeLogic::step() {
         spawn_apple();
         emit_signal("apple_eaten", score);
 
-        if (score >= 68) {
+        if (score >= 68) { 
             won = true;
             game_over = true;
             emit_signal("game_ended", true);
@@ -240,6 +243,22 @@ bool SnakeLogic::step() {
     }
 
     return true;
+}
+
+void SnakeLogic::trim_to(int length) {
+    while (snake_body.size() > length) {
+        snake_body.remove_at(snake_body.size() - 1);
+    }
+}
+
+void SnakeLogic::reset_for_pong() {
+    game_over = false;
+    won = false;
+    phase = 0;
+    apple_pos = Vector2i(-1, -1);
+    walls.clear();
+    statues.clear();
+    UtilityFunctions::print("C++ reset_for_pong called, phase set to 0");
 }
 
 void SnakeLogic::clear_walls() { walls.clear(); }

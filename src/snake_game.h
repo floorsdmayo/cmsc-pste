@@ -49,6 +49,8 @@ public:
     bool step();
     void clear_walls();
     void clear_statues();
+    void trim_to(int length);
+    void reset_for_pong();
 
     int get_score() const;
     int get_phase() const;

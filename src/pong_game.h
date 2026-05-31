@@ -2,6 +2,8 @@
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/variant/vector2.hpp>
+#include <godot_cpp/variant/typed_array.hpp>
+#include <godot_cpp/variant/vector2i.hpp>
 
 namespace godot {
 
@@ -20,6 +22,7 @@ private:
     Vector2 ball_pos;
     Vector2 ball_vel;
     float ball_speed;
+    float snake_hit_cooldown;
 
     // Alex's paddle
     float alex_y;

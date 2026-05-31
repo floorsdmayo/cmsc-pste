@@ -30,6 +30,7 @@ func _ready() -> void:
 	snake_logic.game_ended.connect(_on_game_ended)
 	$CanvasLayer/UI/CloseButton.pressed.connect(_on_give_up)
 	$CanvasLayer/GameBoard.size = Vector2(grid_width * cell_size, grid_height * cell_size)
+	$CanvasLayer/GameBoard.custom_minimum_size = Vector2(grid_width * cell_size, grid_height * cell_size)
 	$CanvasLayer/UI/TauntLabel.text = phase_taunts[0]
 	game_board.snake_logic = snake_logic
 	game_board.grid_width = grid_width
@@ -39,23 +40,19 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if not running: return
+	# Snake always steps on timer — during pong it becomes a moving paddle
+	timer += delta
+	if timer >= snake_logic.get_move_speed():
+		timer = 0.0
+		snake_logic.step()
 	if pong_phase:
-		timer += delta
-		if timer >= snake_logic.get_move_speed():
-			timer = 0.0
-			snake_logic.step()
 		pong_logic.step(delta, snake_logic.get_snake_body())
 		game_board.pong_logic = pong_logic
-		game_board.queue_redraw()
-	else:
-		timer += delta
-		if timer >= snake_logic.get_move_speed():
-			timer = 0.0
-			snake_logic.step()
-			game_board.queue_redraw()
+	game_board.queue_redraw()
 
 func _input(event: InputEvent) -> void:
 	if not running: return
+	# All 4 directions work in both phases
 	if event.is_action_pressed("ui_right"):
 		snake_logic.set_direction(1, 0)
 	elif event.is_action_pressed("ui_left"):
@@ -73,9 +70,6 @@ func _on_phase_changed(new_phase: int) -> void:
 	$CanvasLayer/UI/TauntLabel.text = phase_taunts[new_phase]
 
 func _on_game_ended(success: bool) -> void:
-	print("game ended, success: ", success)
-	print("score: ", snake_logic.get_score())
-	print("phase: ", snake_logic.get_phase())
 	if not success:
 		running = false
 		get_tree().get_first_node_in_group("room_container").show()
@@ -93,16 +87,20 @@ func _start_pong_transition() -> void:
 
 func _launch_pong() -> void:
 	snake_logic.clear_walls()
+	snake_logic.clear_statues()
+	snake_logic.trim_to(8)
+	snake_logic.reset_for_pong()
+	
 	pong_logic = PongGame.new()
 	add_child(pong_logic)
 	pong_logic.setup(grid_width, grid_height)
 	pong_logic.point_scored.connect(_on_point_scored)
 	pong_logic.game_ended.connect(_on_pong_ended)
 	pong_phase = true
+	game_board.pong_phase = true
 	running = true
 	$CanvasLayer/UI/TauntLabel.text = "Ssstruggling? Allow me to RALLY some backup!"
 	_update_pong_score()
-
 
 func _on_point_scored(_player_scored: bool) -> void:
 	_update_pong_score()
