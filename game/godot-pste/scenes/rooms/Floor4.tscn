@@ -21,7 +21,14 @@ offset_left = 800.0
 offset_top = 300.0
 offset_right = 1013.0
 offset_bottom = 331.0
-text = "Go Up (Cost: 3 Stamina)"
+text = "Go Down (Cost: 3 Stamina)"
+
+[node name="MemoryButton" type="Button" parent="CanvasLayer" unique_id=1874138424]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 228.0
+offset_bottom = 431.0
+text = "Remember..."
 
 [node name="Label" type="Label" parent="." unique_id=1033668821]
 top_level = true

@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://c0e4s5k5afwgs"]
+
+[node name="RunAwayGame" type="Control" unique_id=123458052]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=158228058]
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=1380618148]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 124.0
+offset_right = 76.0
+offset_bottom = 124.0
+
+[node name="Bar" type="ColorRect" parent="CanvasLayer/UI" unique_id=1225065826]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 40.0
+
+[node name="Zone" type="ColorRect" parent="CanvasLayer/UI/Bar" unique_id=177676545]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.7544253, 0.11228927, 1)
+
+[node name="Indicator" type="ColorRect" parent="CanvasLayer/UI/Bar" unique_id=923825625]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 40.0
+
+[node name="Track" type="Control" parent="CanvasLayer/UI" unique_id=271074279]
+anchors_preset = 0
+
+[node name="Square0" type="ColorRect" parent="CanvasLayer/UI/Track" unique_id=513946869]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Square1" type="ColorRect" parent="CanvasLayer/UI/Track" unique_id=990056349]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Square2" type="ColorRect" parent="CanvasLayer/UI/Track" unique_id=1505188750]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Square3" type="ColorRect" parent="CanvasLayer/UI/Track" unique_id=1664941247]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Square4" type="ColorRect" parent="CanvasLayer/UI/Track" unique_id=204110519]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/UI" unique_id=686612527]
+layout_mode = 0
+
+[node name="MissesLabel" type="Label" parent="CanvasLayer/UI" unique_id=1399603613]
+layout_mode = 0
+
+[node name="InstructionLabel" type="Label" parent="CanvasLayer/UI" unique_id=159729738]
+layout_mode = 0
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/UI" unique_id=1809241413]
+layout_mode = 0
+text = "Give Up?"

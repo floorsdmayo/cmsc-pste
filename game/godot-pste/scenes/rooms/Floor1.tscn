@@ -14,14 +14,6 @@ offset_right = 340.0
 offset_bottom = 331.0
 text = "Go Up (Cost: 1 Stamina)"
 
-[node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=1636637363]
-visible = false
-offset_left = 800.0
-offset_top = 300.0
-offset_right = 1013.0
-offset_bottom = 331.0
-text = "Go Down (Cost: 1 Stamina)"
-
 [node name="Label" type="Label" parent="." unique_id=2099447362]
 top_level = true
 offset_left = 1070.0

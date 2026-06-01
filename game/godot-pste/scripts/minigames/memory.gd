@@ -1,6 +1,6 @@
 extends Control
 
-const minigame_id = "memory_game"
+const minigame_id = "memory"
 signal completed(success: bool)
 
 const EMOJIS = ["🔥", "💧", "⭐", "🌙", "🍀", "🎵", "💎", "🌸"]
@@ -24,6 +24,10 @@ func _ready() -> void:
 	$UI/GiveUpButton.pressed.connect(_on_give_up_pressed)
 	$UI/MessageLabel.text = "Match all the pairs!"
 	timer_active = true
+	print("memory ready, card count: ", $UI/Cards.get_child_count())
+	print("first card: ", $UI/Cards.get_child(0))
+	# test if first card is clickable
+	$UI/Cards.get_child(0).pressed.connect(func(): print("CARD 0 CLICKED"))
 
 func _process(delta: float) -> void:
 	if not timer_active:
@@ -72,6 +76,7 @@ func _setup_cards() -> void:
 		btn.pressed.connect(_on_card_pressed.bind(i))
 
 func _on_card_pressed(index: int) -> void:
+	print("card pressed: ", index, " can_flip: ", can_flip, " timer: ", timer_active)
 	if not can_flip:
 		return
 	if not timer_active:
@@ -138,12 +143,10 @@ func _on_win() -> void:
 	timer_active = false
 	$UI/MessageLabel.text = "You matched them all! Amazing!"
 	await get_tree().create_timer(1.5).timeout
-	# get_tree().get_first_node_in_group("room_container").show()
 	completed.emit(true)
 
 func _on_lose_or_give_up() -> void:
 	timer_active = false
 	$UI/MessageLabel.text = "Better luck next time."
 	await get_tree().create_timer(1.5).timeout
-	# get_tree().get_first_node_in_group("room_container").show()
 	completed.emit(false)
