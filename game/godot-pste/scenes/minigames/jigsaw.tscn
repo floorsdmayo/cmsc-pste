@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://ddpxdsdhdsb61"]
+
+[ext_resource type="Script" uid="uid://dgn1a885nvqle" path="res://scripts/minigames/jigsaw.gd" id="1_dy8rs"]
+
+[node name="Jigsaw" type="Control" unique_id=419995739]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dy8rs")
+
+[node name="UI" type="VBoxContainer" parent="." unique_id=473884969]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MessageLabel" type="Label" parent="UI" unique_id=1452775729]
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="UI" unique_id=1070412399]
+layout_mode = 2
+
+[node name="MovesLabel" type="Label" parent="UI" unique_id=706823548]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="UI" unique_id=363014516]
+layout_mode = 2
+columns = 4
+
+[node name="Piece0" type="Button" parent="UI/Grid" unique_id=745429063]
+layout_mode = 2
+
+[node name="Piece1" type="Button" parent="UI/Grid" unique_id=1229086016]
+layout_mode = 2
+
+[node name="Piece2" type="Button" parent="UI/Grid" unique_id=1174017189]
+layout_mode = 2
+
+[node name="Piece3" type="Button" parent="UI/Grid" unique_id=1250893682]
+layout_mode = 2
+
+[node name="Piece4" type="Button" parent="UI/Grid" unique_id=920995470]
+layout_mode = 2
+
+[node name="Piece5" type="Button" parent="UI/Grid" unique_id=1117356613]
+layout_mode = 2
+
+[node name="Piece6" type="Button" parent="UI/Grid" unique_id=2070708451]
+layout_mode = 2
+
+[node name="Piece7" type="Button" parent="UI/Grid" unique_id=485964014]
+layout_mode = 2
+
+[node name="Piece8" type="Button" parent="UI/Grid" unique_id=1654858766]
+layout_mode = 2
+
+[node name="Piece9" type="Button" parent="UI/Grid" unique_id=1049341667]
+layout_mode = 2
+
+[node name="Piece10" type="Button" parent="UI/Grid" unique_id=1587294946]
+layout_mode = 2
+
+[node name="Piece11" type="Button" parent="UI/Grid" unique_id=1678373205]
+layout_mode = 2
+
+[node name="Piece12" type="Button" parent="UI/Grid" unique_id=316258847]
+layout_mode = 2
+
+[node name="Piece13" type="Button" parent="UI/Grid" unique_id=1260004109]
+layout_mode = 2
+
+[node name="Piece14" type="Button" parent="UI/Grid" unique_id=1728154923]
+layout_mode = 2
+
+[node name="Piece15" type="Button" parent="UI/Grid" unique_id=104870803]
+layout_mode = 2
+
+[node name="GiveUpButton" type="Button" parent="UI" unique_id=1727934433]
+layout_mode = 2
+text = "Give Up"
