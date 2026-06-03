@@ -1,22 +1,21 @@
 [gd_scene format=3 uid="uid://ohops32du1bf"]
 
 [ext_resource type="Script" uid="uid://ohpxv1wi1y0i" path="res://scripts/minigames/FindTheDifferenceGame.gd" id="1_graif"]
-[ext_resource type="Texture2D" uid="uid://bo63xxb3mumwu" path="res://assets/minigame/FindTheDifferenceGame/left_image.png" id="2_graif"]
-[ext_resource type="Texture2D" uid="uid://chn7y6wjxlq3u" path="res://assets/minigame/FindTheDifferenceGame/right_image.png" id="3_hua17"]
+[ext_resource type="Texture2D" uid="uid://be43bsgft7n0n" path="res://assets/left_image_enhanced.png" id="2_hua17"]
+[ext_resource type="Texture2D" uid="uid://dhfr2sbh8kt2b" path="res://assets/right_image_enhanced.png" id="3_graif"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_graif"]
-radius = 32.0
-height = 228.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_graif"]
+radius = 77.46612
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_js73p"]
-size = Vector2(69, 73)
+size = Vector2(40.5, 41)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fwvg6"]
-radius = 24.0
-height = 86.0
+radius = 12.0
+height = 46.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hua17"]
-radius = 32.06244
+radius = 16.763054
 
 [node name="FindTheDifferenceGame" type="Control" unique_id=2052188738]
 layout_mode = 3
@@ -26,6 +25,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_graif")
+total_differences = null
+fast_time_threshold = null
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=89088203]
 layout_mode = 0
@@ -49,50 +50,85 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(500, 400)
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("2_graif")
+texture = ExtResource("2_hua17")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="Diff1" type="Area2D" parent="MarginContainer/VBox/HBox/LeftImage" unique_id=697317911 groups=["difference_hotspot"]]
+position = Vector2(96, 146)
+metadata/diff_id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/LeftImage/Diff1" unique_id=2071733458]
+position = Vector2(-12, -3)
+shape = SubResource("CircleShape2D_graif")
+metadata/diff_id = 1
+
+[node name="Diff2" type="Area2D" parent="MarginContainer/VBox/HBox/LeftImage" unique_id=554036108 groups=["difference_hotspot"]]
+position = Vector2(276, 182)
+metadata/diff_id = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/LeftImage/Diff2" unique_id=2051558955]
+position = Vector2(27.25, -34.5)
+shape = SubResource("RectangleShape2D_js73p")
+metadata/diff_id = 1
+
+[node name="Diff3" type="Area2D" parent="MarginContainer/VBox/HBox/LeftImage" unique_id=1301270366 groups=["difference_hotspot"]]
+position = Vector2(336, 214)
+metadata/diff_id = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/LeftImage/Diff3" unique_id=953502775]
+position = Vector2(9, -78)
+shape = SubResource("CapsuleShape2D_fwvg6")
+metadata/diff_id = 1
+
+[node name="Diff4" type="Area2D" parent="MarginContainer/VBox/HBox/LeftImage" unique_id=138089219 groups=["difference_hotspot"]]
+position = Vector2(432, 104)
+metadata/diff_id = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/LeftImage/Diff4" unique_id=264320498]
+shape = SubResource("CircleShape2D_hua17")
+metadata/diff_id = 1
 
 [node name="RightImage" type="TextureRect" parent="MarginContainer/VBox/HBox" unique_id=477948470]
 custom_minimum_size = Vector2(500, 400)
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("3_hua17")
+texture = ExtResource("3_graif")
 expand_mode = 2
 stretch_mode = 4
 
 [node name="Diff1" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=872972048 groups=["difference_hotspot"]]
-position = Vector2(29, 260)
+position = Vector2(96, 146)
 metadata/diff_id = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff1" unique_id=1952620192]
-position = Vector2(2, 1)
-shape = SubResource("CapsuleShape2D_graif")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff1" unique_id=788428645]
+position = Vector2(-12, -3)
+shape = SubResource("CircleShape2D_graif")
+metadata/diff_id = 1
 
 [node name="Diff2" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=144836546 groups=["difference_hotspot"]]
-position = Vector2(314, 264)
+position = Vector2(276, 182)
 metadata/diff_id = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff2" unique_id=699121626]
-position = Vector2(0.5, -1.5)
+position = Vector2(27.25, -34.5)
 shape = SubResource("RectangleShape2D_js73p")
 metadata/diff_id = 1
 
 [node name="Diff3" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=2096858119 groups=["difference_hotspot"]]
-position = Vector2(390, 244)
-metadata/diff_id = 3
+position = Vector2(336, 214)
+metadata/diff_id = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff3" unique_id=79728298]
-position = Vector2(2, -3)
+position = Vector2(9, -78)
 shape = SubResource("CapsuleShape2D_fwvg6")
 metadata/diff_id = 1
 
 [node name="Diff4" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=1942725478 groups=["difference_hotspot"]]
-position = Vector2(541, 184)
-metadata/diff_id = 4
+position = Vector2(432, 104)
+metadata/diff_id = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff4" unique_id=1865970161]
-position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_hua17")
 metadata/diff_id = 1
 

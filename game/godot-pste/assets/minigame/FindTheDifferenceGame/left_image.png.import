@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b00jtcgcr4yap"
-path="res://.godot/imported/right_image.png-7553bf25eb142840a414a34e1a7a8103.ctex"
+uid="uid://bo63xxb3mumwu"
+path="res://.godot/imported/left_image.png-a8696d93e26e4950abb339ef42c1befb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/right_image.png"
-dest_files=["res://.godot/imported/right_image.png-7553bf25eb142840a414a34e1a7a8103.ctex"]
+source_file="res://assets/minigame/FindTheDifferenceGame/left_image.png"
+dest_files=["res://.godot/imported/left_image.png-a8696d93e26e4950abb339ef42c1befb.ctex"]
 
 [params]
 

@@ -3,112 +3,119 @@ extends Control
 const minigame_id = "find_the_difference"
 signal completed(success: bool)
 
-@export var total_differences: int = 5
-@export var fast_time_threshold: float = 30.0   # seconds — beats this → unlock secret floor
+@export var total_differences: int = 4
+@export var fast_time_threshold: float = 30.0
 
-# --- State ---
 var found_differences: Array[int] = []
 var elapsed_time: float = 0.0
 var game_active: bool = false
 
-# --- Node refs ---
 @onready var status_label = $MarginContainer/VBox/StatusLabel
 @onready var timer_label  = $MarginContainer/VBox/TimerLabel
 @onready var left_image   = $MarginContainer/VBox/HBox/LeftImage
 @onready var right_image  = $MarginContainer/VBox/HBox/RightImage
 
-# -------------------------------------------------------
 func _ready() -> void:
-		# Each image gets roughly half the screen width, full height minus UI space
-	var img_width = 560
-	var img_height = 540
-
-	left_image.custom_minimum_size = Vector2(img_width, img_height)
-	right_image.custom_minimum_size = Vector2(img_width, img_height)
-
-	# STRETCH_KEEP_ASPECT_COVERED = crops/zooms to fill, no black bars
-	left_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	right_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-
-	# Clip content that goes outside the rect
+	left_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	right_image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	left_image.clip_contents = true
 	right_image.clip_contents = true
-
-#	get_tree().get_first_node_in_group("room_container").hide()
-
-	# Connect all hotspot clicks
-	for spot in get_tree().get_nodes_in_group("difference_hotspot"):
-		spot.input_event.connect(_on_hotspot_clicked.bind(spot))
-
+	left_image.custom_minimum_size = Vector2(560, 540)
+	right_image.custom_minimum_size = Vector2(560, 540)
+	get_tree().get_first_node_in_group("room_container").hide()
 	_update_status()
 	game_active = true
 
-# -------------------------------------------------------
 func _process(delta: float) -> void:
 	if not game_active:
 		return
 	elapsed_time += delta
 	timer_label.text = "Time: %.1fs" % elapsed_time
 
-# -------------------------------------------------------
-func _on_hotspot_clicked(viewport, event: InputEvent, shape_idx: int, hotspot: Node) -> void:
+func _input(event: InputEvent) -> void:
 	if not game_active:
 		return
 	if not (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
 		return
 
-	var diff_id: int = hotspot.get_meta("diff_id", -1)
-	if diff_id == -1:
-		push_warning("Hotspot missing 'diff_id' metadata: " + hotspot.name)
+	var right_rect = Rect2(right_image.global_position, right_image.size)
+	if not right_rect.has_point(event.global_position):
 		return
 
-	if diff_id in found_differences:
-		return 
+	var local_click = event.global_position - right_image.global_position
 
-	_mark_found(diff_id)
+	var clicked = false
+	for spot in get_tree().get_nodes_in_group("difference_hotspot"):
+		if spot == null or not is_instance_valid(spot):
+			continue
+		if spot.get_parent() != right_image:
+			continue
 
-func _unhandled_input(event: InputEvent) -> void:
-	# A click that hit neither image hotspot = wrong guess → lose a heart
-	if not game_active:
-		return
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		# Only penalise if the click is inside one of the two images
-		var left_rect  = Rect2(left_image.global_position,  left_image.size)
-		var right_rect = Rect2(right_image.global_position, right_image.size)
-		if left_rect.has_point(event.global_position) or right_rect.has_point(event.global_position):
-			_wrong_guess()
+		# Works for any shape: circle, capsule, rectangle, polygon
+		if _point_in_area2d(spot, event.global_position):
+			clicked = true
+			var diff_id: int = spot.get_meta("diff_id", -1)
+			if diff_id != -1 and diff_id not in found_differences:
+				_mark_found(diff_id)
 
-# -------------------------------------------------------
+	if not clicked:
+		_wrong_guess()
+
+func _point_in_area2d(area: Area2D, global_point: Vector2) -> bool:
+	for child in area.get_children():
+		if not child is CollisionShape2D:
+			continue
+		var shape = child.shape
+		if shape == null:
+			continue
+		# Transform point into the shape's local space
+		var local_point = child.global_transform.affine_inverse() * global_point
+		if shape.collide(Transform2D(), CircleShape2D.new(), Transform2D(0, local_point)):
+			return true
+		# Simpler: use the shape's own method
+		if shape is RectangleShape2D:
+			var half = (shape as RectangleShape2D).size * 0.5
+			if abs(local_point.x) <= half.x and abs(local_point.y) <= half.y:
+				return true
+		elif shape is CircleShape2D:
+			if local_point.length() <= (shape as CircleShape2D).radius:
+				return true
+		elif shape is CapsuleShape2D:
+			var cap = shape as CapsuleShape2D
+			var half_h = max(cap.height * 0.5 - cap.radius, 0.0)
+			var closest = Vector2(0, clamp(local_point.y, -half_h, half_h))
+			if (local_point - closest).length() <= cap.radius:
+				return true
+	return false
+	
 func _mark_found(diff_id: int) -> void:
 	found_differences.append(diff_id)
-
-	# Draw a red circle marker on both sides
 	_place_marker(diff_id, left_image)
 	_place_marker(diff_id, right_image)
-
 	_update_status()
-
 	if found_differences.size() >= total_differences:
 		_on_win()
 
-func _place_marker(diff_id: int, parent: Node) -> void:
-	# Find the matching hotspot under this image to get its position
+func _place_marker(diff_id: int, parent: TextureRect) -> void:
 	for spot in get_tree().get_nodes_in_group("difference_hotspot"):
-		if spot.get_meta("diff_id", -1) == diff_id and spot.get_parent() == parent:
-			var marker = ColorRect.new()
-			marker.color = Color(1, 0, 0, 0.55)
-			marker.size = Vector2(40, 40)
-			# Centre over the hotspot's collision shape (approximate)
-			marker.position = spot.position - marker.size * 0.5
-			parent.add_child(marker)
-			return
+		if spot == null or not is_instance_valid(spot):
+			continue
+		if spot.get_meta("diff_id", -1) != diff_id:
+			continue
+		if spot.get_parent() != parent:
+			continue
 
+		var marker = ColorRect.new()
+		marker.color = Color(1, 0, 0, 0.55)
+		marker.size = Vector2(60, 60)
+		marker.position = spot.position - marker.size * 0.5
+		parent.add_child(marker)
+		return
+		
 func _wrong_guess() -> void:
 	status_label.text = "Wrong! ❌  (-1 heart)"
-	# Tell the global player stats to remove a heart (adjust to your singleton name)
 	if has_node("/root/GameManager"):
 		get_node("/root/GameManager").lose_heart()
-	# Brief red flash
 	modulate = Color(1, 0.3, 0.3)
 	await get_tree().create_timer(0.3).timeout
 	modulate = Color(1, 1, 1)
@@ -117,16 +124,12 @@ func _wrong_guess() -> void:
 func _update_status() -> void:
 	status_label.text = "Found: %d / %d" % [found_differences.size(), total_differences]
 
-# -------------------------------------------------------
 func _on_win() -> void:
 	game_active = false
 	var fast = elapsed_time <= fast_time_threshold
 	status_label.text = "All differences found! 🎉" + (" (Fast clear!)" if fast else "")
-
-	# Optionally set a flag so Floor 7 secret boss unlocks
 	if fast and has_node("/root/GameManager"):
 		get_node("/root/GameManager").set("secret_boss_unlocked", true)
-
 	await get_tree().create_timer(1.5).timeout
 	get_tree().get_first_node_in_group("room_container").show()
 	completed.emit(true)
