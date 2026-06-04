@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PSTEStamina="*uid://8n2158e7vb8o"
+Dialogues="*uid://bkn742ljyegy1"
 GameManager="*res://scripts/GameManager.gd"
 
 [display]
@@ -32,3 +33,4 @@ window/stretch/aspect="expand"
 [global_group]
 
 room_container=""
+dialogue_box=""

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c30yppxgthqch" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://drahu5xsleh4b" path="res://scenes/ui/HUD.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://dg4br8268unek" path="res://scripts/DebugMenu.gd" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c0q22mn0sawop" path="res://scenes/DialogueBox.tscn" id="4_1bvp3"]
 
 [node name="main" type="Node2D" unique_id=106412976]
 script = ExtResource("1_0xm2m")
@@ -15,3 +16,5 @@ script = ExtResource("1_0xm2m")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1680641496]
 script = ExtResource("3_h2yge")
+
+[node name="DialogueBox" parent="CanvasLayer" unique_id=495100187 instance=ExtResource("4_1bvp3")]

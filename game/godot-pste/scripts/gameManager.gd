@@ -8,6 +8,23 @@ signal minigame_completed(minigame_id: String, success: bool)
 # ── C++ system (Autoload named "PSTEStamina" in Project Settings) ───────────
 @onready var ss = get_node("/root/PSTEStamina")
 
+# dialogue
+func show_dialogue(key: String) -> void:
+	var raw: Array = Dialogues.DIALOGUES.get(key, [])
+	if raw.is_empty():
+		push_warning("GameManager: no dialogue found for key '%s'" % key)
+		return
+	var db = get_tree().get_first_node_in_group("dialogue_box")
+	if db == null:
+		push_warning("GameManager: no node in group 'dialogue_box' found")
+		return
+	var lines: Array[String] = []
+	for item in raw:
+		lines.append(str(item))
+
+	await db.start(lines)
+
+		
 # ── game state ────────────────────────────────────────────────────────────────
 var current_floor: int = 6
 var elevator_unlocked: bool = false
