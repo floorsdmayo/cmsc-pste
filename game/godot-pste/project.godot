@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+PSTEStamina="*uid://8n2158e7vb8o"
 GameManager="*res://scripts/GameManager.gd"
 
 [display]

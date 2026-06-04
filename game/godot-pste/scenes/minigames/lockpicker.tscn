@@ -1,49 +1,55 @@
 [gd_scene format=3 uid="uid://uvf5xrmgfgof"]
 
-[ext_resource type="Script" uid="uid://dtthadbiv72t7" path="res://scripts/minigames/lockpicker.gd" id="1_0g8d1"]
+[ext_resource type="Script" uid="uid://cqi0oydg2wdye" path="res://scripts/minigames/lockpicker.gd" id="1_0g8d1"]
 
 [node name="Lockpicker V2" type="Control" unique_id=1204585239]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("1_0g8d1")
 
 [node name="UI" type="VBoxContainer" parent="." unique_id=171357848]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-alignment = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="MessageLabel" type="Label" parent="UI" unique_id=303333963]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="TimerLabel" type="Label" parent="UI" unique_id=743192632]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="SimonButtons" type="HBoxContainer" parent="UI" unique_id=853730825]
-layout_mode = 2
-
-[node name="Button0" type="Button" parent="UI/SimonButtons" unique_id=1903850053]
-layout_mode = 2
-
-[node name="Button1" type="Button" parent="UI/SimonButtons" unique_id=627726584]
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="UI/SimonButtons" unique_id=1939069097]
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="UI/SimonButtons" unique_id=1549284923]
 layout_mode = 2
 
 [node name="GiveUpButton" type="Button" parent="UI" unique_id=29196489]
 layout_mode = 2
 text = "Give Up"
+
+[node name="Blocks" type="HBoxContainer" parent="UI" unique_id=978261616]
+layout_mode = 2
+
+[node name="Button0" type="Button" parent="UI/Blocks" unique_id=1834023520]
+layout_mode = 2
+
+[node name="Button1" type="Button" parent="UI/Blocks" unique_id=1143084876]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="UI/Blocks" unique_id=1171860345]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="UI/Blocks" unique_id=1166613200]
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="UI/Blocks" unique_id=221857223]
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="UI/Blocks" unique_id=210844905]
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="UI/Blocks" unique_id=2093023346]
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="UI/Blocks" unique_id=1201392815]
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="UI/Blocks" unique_id=619389915]
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="UI/Blocks" unique_id=957282538]
+layout_mode = 2

@@ -23,6 +23,13 @@ offset_right = 1013.0
 offset_bottom = 331.0
 text = "Go Down (Cost: 3 Stamina)"
 
+[node name="JigsawButton" type="Button" parent="CanvasLayer" unique_id=1208942552]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
+
 [node name="Label" type="Label" parent="." unique_id=287093319]
 top_level = true
 offset_left = 1070.0

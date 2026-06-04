@@ -1,5 +1,4 @@
 # Project PSTE -- Point, Solve, Think, Escape 
-### thank you claude forda help^^
 
 ## What is this??
 A **point-and-click adventure game** built in **Godot 4.6** with **C++ GDExtension** (godot-cpp).
@@ -23,7 +22,8 @@ cmsc-pste/
 │   ├── godot-pste/             # Godot project folder
 │   │   ├── scenes/
 │   │   │   ├── rooms/          # Floor1-6.tscn
-│   │   │   ├── minigames/      # WireFixerGame.tscn, SnakeGame.tscn
+│   │   │   ├── minigames/      # WireFixerGame.tscn, SnakeGame.tscn,
+│   │   │   │                   # FindTheDifferenceGame.tscn, RunAwayGame.tscn
 │   │   │   └── ui/             # HUD.tscn
 │   │   ├── scripts/
 │   │   │   ├── GameManager.gd  # Autoload singleton
@@ -31,7 +31,11 @@ cmsc-pste/
 │   │   │   ├── HUD.gd
 │   │   │   ├── Main.gd
 │   │   │   ├── rooms/          # Floor1.gd - Floor6.gd
-│   │   │   └── minigames/      # WireFixer.gd, SnakeGame.gd, SnakeBoard.gd
+│   │   │   └── minigames/      # WireFixer.gd, SnakeGame.gd, SnakeBoard.gd,
+│   │   │                       # find_the_difference.gd, run_away.gd
+│   │   ├── assets/
+│   │   │   └── images/
+│   │   │       └── minigames/  # left_image.jpg, right_image_enhanced.png (FtD images)
 │   │   ├── bin/                # Compiled .dll lives here
 │   │   └── pste.gdextension
 │   └── bin/                    # SCons outputs .dll here, copy to godot-pste/bin/
@@ -71,7 +75,8 @@ Start → Floor 5 (Wirefixer, Bench, Ate Girl NPC) [Jan]
 - Key variables: `stamina`, `hearts`, `current_floor`, `game_flags`
 - Key methods: `change_room()`, `launch_minigame()`, `use_stairs()`, `rest_at_bench()`, `gain_stamina()`, `lose_heart()`, `set_flag()`, `get_flag()`
 - Signals: `stamina_changed`, `hearts_changed`, `minigame_completed`
-- Stair costs: Floor 5→4: 3, 4→3: 3, 3→2: 3, 2→1: 3 (total 12, max stamina 10 = can't reach Floor 1 without resting for maximum ragebait)
+- Stair costs: Floor 5→4: 3, 4→3: 3, 3→2: 3, 2→1: 3 (total 12, max stamina 10 = can't reach Floor 1 without resting/minigames — intentional ragebait)
+- **NOTE**: There is a temp line `game_flags["floor6_unlocked"] = true` in `_ready()` for testing. Remove this when Find the Difference fast-clear unlock is implemented.
 
 ## FloorBase
 - File: `res://scripts/FloorBase.gd`
@@ -81,7 +86,7 @@ Start → Floor 5 (Wirefixer, Bench, Ate Girl NPC) [Jan]
 - Methods: `go_up()`, `go_down()`
 
 ## Minigame Template
-Every minigame must:
+Every minigame must follow this exact structure:
 ```gdscript
 extends Control
 const minigame_id = "unique_id"
@@ -94,10 +99,12 @@ func _on_win():
     get_tree().get_first_node_in_group("room_container").show()
     completed.emit(true)
 
-func _on_lose():
+func _on_lose_or_give_up():
     get_tree().get_first_node_in_group("room_container").show()
     completed.emit(false)
 ```
+- Save scenes to `res://scenes/minigames/`
+- Save scripts to `res://scripts/minigames/`
 
 ## Completed Minigames
 ### WireFixer (Floor 5) ✅
@@ -121,43 +128,96 @@ func _on_lose():
   - Snake body = your paddle on the left
   - Alex Eala AI paddle on the right
   - First to 7 points wins
-- Taunts:
-  - Start: "Sssso you found my nest... Allow me to shed some light on your ssituation — by taking it away! Conssider thiss your practical exam!"
-  - Phase 2: "Impresssive... but can you handle my WALL-gorithmsss?"
-  - Phase 3: "You think you can COMPILE me?! I'll turn YOU to SSSTONEEE!"
-  - Pong summon: "You may have defeated my algorithmss... but have you met my SSERVE-ior?! I sssummon — ALEX EALA!"
-  - Pong taunt: "Ssstruggling? Allow me to RALLY some backup!"
-  - Pong win: "Fault! FAULT! Thiss can't be happening..."
-  - Full defeat: "Imposssible... I'll add this to your final exam..."
-  - Pong loss: "Out of boundsss! Just like your chanccess of esscaping!"
+- Taunts defined in SnakeGame.gd
 
-## Pending Minigames
+### Memory Game (Floor 4) ✅
+- Connected to floor system by Uzi
+- Scene: `res://scenes/minigames/memory.tscn`
+
+## Pending / In Progress Minigames
 | Minigame | Floor | Member | Status |
 |---|---|---|---|
-| Memory Game | 4 | Uzi | Not started |
+| Find the Difference | 1 | Jan | In progress — see notes below |
+| Run Away (The Gate) | Ground | Jan | Script written, scene not built yet |
 | Lockpicker | 3 | Uzi | Not started |
 | Jigsaw Puzzle | 2 | Uzi | Not started |
-| Find the Difference | 1 | Jan | Not started |
-| The Gate (Run Away) | Ground | Jan | Not started |
+
+## Find the Difference — Implementation Notes
+- Scene: `res://scenes/minigames/FindTheDifferenceGame.tscn`
+- Script: `res://scripts/minigames/find_the_difference.gd`
+- Images: `res://assets/images/minigames/left_image.jpg` and `right_image_enhanced.png`
+- Base resolution: **1152x648**, images display at **575x575** each side by side
+- `total_differences` export var = 4 (set in Inspector, not hardcoded)
+- Fast clear threshold: 30 seconds → sets `GameManager.secret_boss_unlocked = true`
+
+### Scene Tree Structure
+```
+FindTheDifferenceGame (Control)
+ └─ MarginContainer
+     └─ VBox (VBoxContainer)
+         ├─ HBox (HBoxContainer)
+         │   ├─ LeftImage (TextureRect)   ← stretch: KEEP_ASPECT_COVERED, clip: true
+         │   │   ├─ Diff1 (Area2D) [group: difference_hotspot] [meta: diff_id = 1]
+         │   │   │   └─ CollisionShape2D (RectangleShape2D) ← Make Unique per diff!
+         │   │   ├─ Diff2 ... Diff4 (same pattern, diff_id 2-4)
+         │   └─ RightImage (TextureRect)  ← same settings as LeftImage
+         │       ├─ Diff1 ... Diff4       ← SAME diff_id values as LeftImage counterparts
+         ├─ StatusLabel (Label)
+         └─ TimerLabel (Label)
+```
+
+### Critical Setup Rules for Find the Difference
+1. **Mouse Filter** on both TextureRect nodes must be set to **Pass** (not Stop)
+2. Each CollisionShape2D must have **Make Unique** applied (or they share the same shape resource and all resize together)
+3. Area2D nodes need **Input Pickable = ON**
+4. Both images should be **cropped to the same resolution** before importing — mismatched resolutions cause collision position offset issues
+5. Collision detection uses `col_shape.global_position` directly (no manual scale math needed if images are same size)
+6. Only right image clicks are processed — left image is display only
+7. Wrong clicks inside right image (but outside hotspots) cost a heart via `GameManager.lose_heart()`
+
+### Known Issues
+- Image UID mismatch warning on `right_image_enhanced.png` — fix by reassigning texture in Inspector and reimporting
+- If collider positions appear offset from visual differences, ensure both images are the same crop/resolution
+
+## Run Away — Implementation Notes
+- Scene: `res://scenes/minigames/RunAwayGame.tscn` (not built yet)
+- Script: `res://scripts/minigames/run_away.gd` ✅ written
+- Triggered at The Gate on Floor 1 (final boss vs The Guard)
+- Mechanic: Press Space when indicator is in green zone to advance across 5 squares
+- Each square makes the indicator faster
+- Miss = lose, complete all 5 = win
+
+### Scene Tree Structure Needed
+```
+RunAwayGame (Control)
+ └─ MarginContainer
+     └─ VBox (VBoxContainer)
+         ├─ InstructionLabel (Label)
+         ├─ BarContainer (Control)        ← fixed size e.g. 600x40
+         │   ├─ SafeZone (ColorRect)      ← green, positioned by script
+         │   └─ IndicatorBar (ColorRect)  ← red/white, moved by script
+         ├─ SquaresContainer (HBoxContainer) ← script auto-fills with 5 squares
+         └─ ResultLabel (Label)
+```
 
 ## Floor Unlock Logic
-- Floor 6 unlocked by: beating Find the Difference fast OR elevator (Maintenance Guy on Floor 1)
+- Floor 6 unlocked by: beating Find the Difference under 30s OR elevator (Maintenance Guy on Floor 1)
 - Flag: `GameManager.set_flag("floor6_unlocked", true)`
 - Floor 5 StairsUp disabled until `floor6_unlocked` is true
 
 ## Known Issues / TODO
-- [ ] Statue visibility added to SnakeBoard.gd (just added, test needed)
-- [ ] Snake game layout — currently black box on side of screen, fix with assets later
-- [ ] Pong transition working but snake doesn't block ball properly yet (needs tuning, not tried yet since it currently requires tester to playthrough all phases)
-- [ ] All floor scenes need real backgrounds (Assets are here, but not yet inserted)
+- [ ] Remove temp `game_flags["floor6_unlocked"] = true` from GameManager._ready() when FtD fast-clear is done
+- [ ] Statue visibility added to SnakeBoard.gd — test needed
+- [ ] Snake game layout — black box on side of screen, fix with assets later
+- [ ] Pong transition working but snake doesn't block ball properly yet
+- [ ] All floor scenes need real backgrounds
 - [ ] HUD positioning needs cleanup
 - [ ] Ate girl NPC dialogue not built yet (Hya)
 - [ ] Maintenance Guy NPC not built yet
-- [ ] The Gate final boss (run away sequence) not built yet
-- [ ] Find the Difference time tracking not built yet
-- [ ] Remove temp `game_flags["floor6_unlocked"] = true` from GameManager._ready() when Find the Difference is done
+- [ ] Find the Difference — finalize collision placement after image crop fix
+- [ ] Run Away — build scene in Godot editor
 
 ## Team
-- **Jan** — Core game, floors, WireFixer ✅, Snake ✅, Find the Difference, The Gate
-- **Uzi** — Memory Game, Lockpicker, Jigsaw Puzzle
+- **Jan** — Core game, floors, WireFixer ✅, Snake ✅, Find the Difference (in progress), Run Away (script done)
+- **Uzi** — Memory Game ✅, Lockpicker, Jigsaw Puzzle
 - **Hya** — PPT/game flow presentation, NPC dialogue

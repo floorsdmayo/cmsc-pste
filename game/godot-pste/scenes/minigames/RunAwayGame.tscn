@@ -23,6 +23,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="BarContainer" type="Control" parent="MarginContainer/VBox" unique_id=400921975]
+custom_minimum_size = Vector2(600, 40)
 layout_mode = 2
 
 [node name="SafeZone" type="ColorRect" parent="MarginContainer/VBox/BarContainer" unique_id=400727348]
@@ -31,6 +32,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="IndicatorBar" type="ColorRect" parent="MarginContainer/VBox/BarContainer" unique_id=1355273950]
+custom_minimum_size = Vector2(12, 40)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
