@@ -13,14 +13,14 @@ offset_left = 150.0
 offset_top = 300.0
 offset_right = 340.0
 offset_bottom = 331.0
-text = "Go Up (Cost: 1 Stamina)"
+text = "Go Up"
 
 [node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=339492325]
 offset_left = 800.0
 offset_top = 300.0
 offset_right = 1013.0
 offset_bottom = 331.0
-text = "Go Down (Cost: 1 Stamina)"
+text = "Go Down"
 
 [node name="BenchButton" type="Button" parent="CanvasLayer" unique_id=1480544451]
 offset_right = 8.0

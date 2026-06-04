@@ -5,7 +5,6 @@
 [node name="Floor5" type="Node2D" unique_id=736745906]
 script = ExtResource("1_2flnv")
 floor_number = 5
-stair_cost = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2136611604]
 
@@ -29,13 +28,6 @@ offset_top = 400.0
 offset_right = 228.0
 offset_bottom = 431.0
 text = "Fix Wires"
-
-[node name="BenchButton" type="Button" parent="CanvasLayer" unique_id=1460873986]
-offset_left = 800.0
-offset_top = 400.0
-offset_right = 914.0
-offset_bottom = 431.0
-text = "Rest at Bench"
 
 [node name="Label" type="Label" parent="." unique_id=728668537]
 top_level = true

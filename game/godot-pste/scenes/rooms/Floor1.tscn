@@ -4,7 +4,6 @@
 
 [node name="Floor1" type="Node2D" unique_id=136479256]
 script = ExtResource("1_05aw6")
-floor_number = 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1344830224]
 
@@ -13,7 +12,28 @@ offset_left = 150.0
 offset_top = 300.0
 offset_right = 340.0
 offset_bottom = 331.0
-text = "Go Up (Cost: 1 Stamina)"
+text = "Go Up "
+
+[node name="FindTheDButton" type="Button" parent="CanvasLayer" unique_id=705214878]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
+
+[node name="GateButton" type="Button" parent="CanvasLayer" unique_id=375698627]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
+
+[node name="ElevatorButton" type="Button" parent="CanvasLayer" unique_id=1005424884]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 363.0
+offset_bottom = 431.0
+text = "Elevator"
 
 [node name="Label" type="Label" parent="." unique_id=2099447362]
 top_level = true

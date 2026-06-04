@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c30yppxgthqch" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://drahu5xsleh4b" path="res://scenes/ui/HUD.tscn" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://c7adffno2878c" path="res://room_container.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://dg4br8268unek" path="res://scripts/DebugMenu.gd" id="3_h2yge"]
 
 [node name="main" type="Node2D" unique_id=106412976]
 script = ExtResource("1_0xm2m")
@@ -12,4 +12,6 @@ script = ExtResource("1_0xm2m")
 [node name="HUD" parent="UILayer" unique_id=1218443215 instance=ExtResource("2_h2yge")]
 
 [node name="RoomContainer" type="Node2D" parent="." unique_id=645225547 groups=["room_container"]]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1680641496]
 script = ExtResource("3_h2yge")

@@ -60,30 +60,79 @@ Then reload project in Godot.
 
 ## Game Flow
 ```
-Start → Floor 5 (Wirefixer, Bench, Ate Girl NPC) [Jan]
+Start at Floor 6 (player spawns here, respawns here on feint)
+      → Floor 5 (Wirefixer minigame, Bench, Ate Girl NPC) [Jan]
       → Floor 4 (Memory Game) [Uzi]
       → Floor 3 (Lockpicker) [Uzi]
       → Floor 2 (Jigsaw) [Uzi]
-      → Floor 1 (Find the Difference, Maintenance Guy, The Gate) [Jan]
-      → Secret: Floor 6 (Snake Boss — Sssir Rrryan) [unlocked by beating FtD fast] [Jan]
-      → The Gate (Final Boss — Run Away) [Jan]
+      → Floor 1 (Find the Difference — secret condition: pick diff3 first + under 6.7s)
+            → Default ending: dialogue → Floor 0 (The Gate)
+            → Secret ending: adrenaline triggered → Floor 7 (true ending)
+      → Floor 0 (Run Away minigame — final boss vs The Guard)
+      → Floor 7 (true ending scene) [adrenaline only]
+
+Stamina gating (natural, no hard locks):
+  Base 10 → after each minigame +5 max → Floor 1 reachable only after all 5 clears
+  Feint (stamina runs out) → respawn Floor 6, keep all upgrades
+  Death (hearts == 0) → respawn Floor 6, keep all upgrades
 ```
 
-## GameManager (Autoload)
+## Stamina System (C++ GDExtension) ✅ IMPLEMENTED
+- C++ class: `PSTEStamina` (in `src/stamina_system.h/.cpp`)
+- Registered via `register_types.cpp`
+- Autoload name: `PSTEStamina` (loaded as `player_stamina.tscn` which has PSTEStamina as root node)
+- `GameManager.gd` is now a thin GDScript wrapper — all stamina logic lives in C++
+- Access via `GameManager.ss` anywhere in GDScript
+
+### Stamina Values
+- Base max stamina: 10
+- Stair cost (go down): 8 per floor
+- Per minigame first-clear bonus: +5 max stamina + full refill
+- Hard cap: 35 (allows reaching Floor 1 after all 5 minigames)
+- Adrenaline surge (secret ending): +20 temporary above max
+
+### Key Methods (call via GameManager.ss)
+- `get_stamina()`, `get_max_stamina()`, `get_hearts()`, `get_max_hearts()`
+- `try_go_down(floor_number)` → bool (emits player_exhausted if insufficient)
+- `go_up()` → free, no cost
+- `on_minigame_cleared(minigame_id)` → +5 max, full refill, one-time only
+- `is_minigame_cleared(minigame_id)` → bool
+- `trigger_adrenaline()` → secret ending surge
+- `is_adrenaline_active()` → bool
+- `rest()`, `respawn()` → refill stamina+hearts, keep upgrades
+- `lose_heart()`, `gain_heart()`
+
+### Signals (connect via GameManager which re-emits them)
+- `stamina_changed(new_value)`, `hearts_changed(new_value)`
+- `player_exhausted` → feint, respawn at Floor 6, keep all upgrades
+- `player_died` → hearts == 0 only
+- `adrenaline_triggered`
+
+### Minigame IDs (must match exactly for on_minigame_cleared)
+- Floor 5: `"wirefixer"`
+- Floor 4: `"memory"`
+- Floor 3: `"lockpicker"`
+- Floor 2: `"jigsaw"`
+- Floor 1: `"find_the_difference"`
+
+## GameManager (Autoload) ✅ UPDATED
 - Name: `GameManager`
 - File: `res://scripts/GameManager.gd`
-- Key variables: `stamina`, `hearts`, `current_floor`, `game_flags`
-- Key methods: `change_room()`, `launch_minigame()`, `use_stairs()`, `rest_at_bench()`, `gain_stamina()`, `lose_heart()`, `set_flag()`, `get_flag()`
+- Key variables: `current_floor` (starts at 6), `secret_key`, `inventory`, `game_flags`
+- Key methods: `change_room()`, `launch_minigame()`, `try_go_down()`, `go_up()`, `rest_at_bench()`, `gain_stamina()`, `lose_heart()`, `set_flag()`, `get_flag()`
 - Signals: `stamina_changed`, `hearts_changed`, `minigame_completed`
-- Stair costs: Floor 5→4: 3, 4→3: 3, 3→2: 3, 2→1: 3 (total 12, max stamina 10 = can't reach Floor 1 without resting/minigames — intentional ragebait)
-- **NOTE**: There is a temp line `game_flags["floor6_unlocked"] = true` in `_ready()` for testing. Remove this when Find the Difference fast-clear unlock is implemented.
+- `elevator_unlocked` var REMOVED (elevator scrapped)
+- `_on_player_exhausted` shows HUD message only, does NOT respawn
+- `_do_respawn` called only on hearts == 0
 
-## FloorBase
+## FloorBase ✅ UPDATED
 - File: `res://scripts/FloorBase.gd`
 - class_name: `FloorBase`
 - Each floor script extends `FloorBase`
-- Export vars: `floor_number`, `stair_cost`
-- Methods: `go_up()`, `go_down()`
+- Export var: `floor_number` only (`stair_cost` removed — cost hardcoded in C++)
+- Methods: `go_up()`, `go_down()`, `_update_button()`, `_on_stamina_changed()`
+- StairsDownButton auto-updates text and color based on current stamina vs cost (8)
+- go_up() blocks floor 6→7 unless adrenaline active
 
 ## Minigame Template
 Every minigame must follow this exact structure:
@@ -181,41 +230,64 @@ FindTheDifferenceGame (Control)
 
 ## Run Away — Implementation Notes
 - Scene: `res://scenes/minigames/RunAwayGame.tscn` (not built yet)
-- Script: `res://scripts/minigames/run_away.gd` ✅ written
-- Triggered at The Gate on Floor 1 (final boss vs The Guard)
-- Mechanic: Press Space when indicator is in green zone to advance across 5 squares
-- Each square makes the indicator faster
-- Miss = lose, complete all 5 = win
+- Script: `res://scripts/minigames/run_away.gd` ✅ written (fully in-script, no scene tree needed)
+- Triggered at Floor 0 (The Gate) after default ending dialogue
+- Mechanic: Press Space when yellow indicator is in green safe zone, 10 rounds
+- Each round config defined in ROUND_CONFIG array (speed, safe_start, safe_end)
+- Miss = lose heart + fail, complete all 10 = win
+- Visual: tunnel with light at end growing closer as rounds progress
+- Audio: heartbeat/breath sounds generated programmatically (no audio files needed)
+- Scene tree: just a plain Control node, everything built in _ready()
 
-### Scene Tree Structure Needed
-```
-RunAwayGame (Control)
- └─ MarginContainer
-     └─ VBox (VBoxContainer)
-         ├─ InstructionLabel (Label)
-         ├─ BarContainer (Control)        ← fixed size e.g. 600x40
-         │   ├─ SafeZone (ColorRect)      ← green, positioned by script
-         │   └─ IndicatorBar (ColorRect)  ← red/white, moved by script
-         ├─ SquaresContainer (HBoxContainer) ← script auto-fills with 5 squares
-         └─ ResultLabel (Label)
-```
+### Secret Ending Condition (Find the Difference)
+- Player must click diff_id == 3 FIRST
+- AND complete all differences in under 6.7 seconds
+- If met: `GameManager.ss.trigger_adrenaline()` is called in `_on_win()`
+- Adrenaline allows go_up() from Floor 1 → Floor 7
 
-## Floor Unlock Logic
-- Floor 6 unlocked by: beating Find the Difference under 30s OR elevator (Maintenance Guy on Floor 1)
-- Flag: `GameManager.set_flag("floor6_unlocked", true)`
-- Floor 5 StairsUp disabled until `floor6_unlocked` is true
+## Floor Unlock Logic (UPDATED)
+- Game starts at Floor 6 (no unlock needed)
+- Floors 6→2 freely explorable in any order via go_up/go_down
+- Going DOWN costs 8 stamina; going UP is free
+- Floor 1 reachable only after all 5 minigames cleared (stamina math enforces this)
+- Floor 7 reachable only via adrenaline (secret ending condition in Find the Difference)
+- Floor 0 reachable via default ending dialogue after Floor 1 minigame
+- Elevator: SCRAPPED entirely
 
 ## Known Issues / TODO
-- [ ] Remove temp `game_flags["floor6_unlocked"] = true` from GameManager._ready() when FtD fast-clear is done
+- [ ] Run Away — build scene in Godot (just plain Control node, script does everything)
+- [ ] Run Away — tunnel visual + heartbeat audio (in progress this session)
 - [ ] Statue visibility added to SnakeBoard.gd — test needed
 - [ ] Snake game layout — black box on side of screen, fix with assets later
 - [ ] Pong transition working but snake doesn't block ball properly yet
 - [ ] All floor scenes need real backgrounds
 - [ ] HUD positioning needs cleanup
 - [ ] Ate girl NPC dialogue not built yet (Hya)
-- [ ] Maintenance Guy NPC not built yet
+- [ ] Maintenance Guy NPC not built yet (now irrelevant? confirm with team)
 - [ ] Find the Difference — finalize collision placement after image crop fix
-- [ ] Run Away — build scene in Godot editor
+- [ ] Find the Difference — fast clear condition updated: diff3 first + under 6.7s (was 30s)
+- [ ] Floor 1 script — Dialogic timeline names needed from Hya: "default_ending_dialogue" and "secret_ending_dialogue"
+- [ ] Debug menu added (res://scripts/DebugMenu.gd) — REMOVE before final build
+- [ ] HUD show_exhaustion_message() method needs implementing
+- [ ] Snake/Floor 7 scene needs building (true ending)
+- [ ] Floor 0 scene needs building (The Gate + Run Away trigger)
+
+## WHERE WE LEFT OFF (session handoff)
+**Last thing working:** Stamina system fully wired. Floor traversal working with stamina gating. StairsDownButton shows live stamina vs cost. Feint on exhaustion sends to Floor 6. Debug menu working.
+
+**Next immediate tasks:**
+1. Finish `run_away.gd` tunnel visual + heartbeat audio (in progress)
+2. Implement `show_exhaustion_message()` in HUD.gd
+3. Get Dialogic timeline names from Uzi, wire into every Floor.gd
+4. Make the UI for all minigames less janky (snake, find the difference)
+
+**Build reminder:**
+```bash
+cd ~/OneDrive/Documents/GitHub/cmsc-pste
+scons
+# dll auto-outputs to game/godot-pste/bin/ now (SConstruct fixed)
+```
+Close Godot before compiling. Reopen after.
 
 ## Team
 - **Jan** — Core game, floors, WireFixer ✅, Snake ✅, Find the Difference (in progress), Run Away (script done)

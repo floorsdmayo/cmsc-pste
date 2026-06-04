@@ -15,9 +15,13 @@ private:
     int hearts;
     int max_hearts;
 
+    bool adrenaline_active;
+
     static const int BASE_MAX_STAMINA = 10;
-    static const int HARD_CAP = 30;
+    static const int HARD_CAP = 35;
     static const int FIRST_CLEAR_BONUS = 5;
+    static const int STAIR_COST = 8;
+    static const int ADRENALINE_SURGE = 20;
 
     // tracks which minigame IDs have already been cleared
     // key: minigame_id (String), value: true if cleared
@@ -48,6 +52,10 @@ public:
     // rest / respawn
     void rest();
     void respawn();
+
+    // adrenaline
+    void trigger_adrenaline();
+    bool is_adrenaline_active() const;
 
     // getters
     int get_stamina() const;

@@ -1,10 +1,9 @@
 extends Control
 
-const minigame_id = "find_the_difference"
+const minigame_id = "find"
 signal completed(success: bool)
 
 @export var total_differences: int = 4
-@export var fast_time_threshold: float = 30.0
 
 var found_differences: Array[int] = []
 var elapsed_time: float = 0.0
@@ -22,7 +21,7 @@ func _ready() -> void:
 	right_image.clip_contents = true
 	left_image.custom_minimum_size = Vector2(560, 540)
 	right_image.custom_minimum_size = Vector2(560, 540)
-	get_tree().get_first_node_in_group("room_container").hide()
+	#get_tree().get_first_node_in_group("room_container").hide()
 	_update_status()
 	game_active = true
 
@@ -156,10 +155,18 @@ func _update_status() -> void:
 
 func _on_win() -> void:
 	game_active = false
-	var fast = elapsed_time <= fast_time_threshold
-	status_label.text = "All differences found! 🎉" + (" (Fast clear!)" if fast else "")
-	if fast and has_node("/root/GameManager"):
-		get_node("/root/GameManager").set("secret_boss_unlocked", true)
+	var first_was_diff3 = found_differences.size() > 0 and found_differences[0] == 3
+	var fast = elapsed_time <= 6.7
+	var secret_met = first_was_diff3 and fast
+	
+	status_label.text = "All differences found! 🎉"
+	if secret_met:
+		status_label.text += " (Something stirs...)"
+	
+	if has_node("/root/GameManager"):
+		if secret_met:
+			get_node("/root/GameManager").ss.trigger_adrenaline()
+	
 	await get_tree().create_timer(1.5).timeout
 	get_tree().get_first_node_in_group("room_container").show()
 	completed.emit(true)

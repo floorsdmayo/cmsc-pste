@@ -5,7 +5,6 @@
 [node name="Floor2" type="Node2D" unique_id=496897651]
 script = ExtResource("1_1flty")
 floor_number = 2
-stair_cost = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=823396649]
 
@@ -14,14 +13,14 @@ offset_left = 150.0
 offset_top = 300.0
 offset_right = 340.0
 offset_bottom = 331.0
-text = "Go Up (Cost: 3 Stamina)"
+text = "Go Up"
 
 [node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=1797266468]
 offset_left = 800.0
 offset_top = 300.0
 offset_right = 1013.0
 offset_bottom = 331.0
-text = "Go Down (Cost: 3 Stamina)"
+text = "Go Down"
 
 [node name="JigsawButton" type="Button" parent="CanvasLayer" unique_id=1208942552]
 offset_left = 150.0

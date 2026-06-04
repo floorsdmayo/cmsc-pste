@@ -68,22 +68,28 @@ func _on_minigame_done(success: bool, mg: Node, canvas: CanvasLayer) -> void:
 
 	if success:
 		ss.gain_heart()
-		ss.on_minigame_cleared(mg.minigame_id)   # +5 max stamina, full refill (first clear only)
+		ss.on_minigame_cleared(mg.minigame_id)
+		# floor 1 secret condition check
+		if mg.minigame_id == "floor1_minigame" and mg.get("secret_condition_met"):
+			ss.trigger_adrenaline()
 	else:
 		ss.lose_heart()
 
 	canvas.queue_free()
-
+	
 # ── internal signal handlers ──────────────────────────────────────────────────
 
 func _on_player_died() -> void:
 	_do_respawn()
 
 func _on_player_exhausted() -> void:
-	# show popup wherever your HUD lives
+	# feint — reset position only
+	GameManager.ss.respawn()
+	current_floor = 6
+	change_room("res://scenes/rooms/Floor6.tscn")
 	var hud = get_tree().get_first_node_in_group("hud")
 	if hud and hud.has_method("show_exhaustion_message"):
-		hud.show_exhaustion_message("You are tired. You are scared.")
+		hud.show_exhaustion_message("You collapse from exhaustion...")
 
 func _do_respawn() -> void:
 	ss.respawn()
