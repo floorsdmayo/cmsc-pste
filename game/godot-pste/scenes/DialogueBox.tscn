@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c0q22mn0sawop"]
+
+[ext_resource type="Script" uid="uid://u0ru0ra7whmm" path="res://scripts/DialogueBox.gd" id="1_r2og1"]
+[ext_resource type="Texture2D" uid="uid://cx0jneov5x486" path="res://assets/sprites/ate.png" id="2_giuoe"]
+
+[node name="DialogueBox" type="Control" unique_id=495100187 groups=["dialogue_box"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r2og1")
+
+[node name="Panel" type="Panel" parent="." unique_id=593667297]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1455276840]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpeakerLabel" type="Label" parent="Panel/VBox" unique_id=368679666]
+layout_mode = 2
+
+[node name="DialogueText" type="RichTextLabel" parent="Panel/VBox" unique_id=255787008]
+layout_mode = 2
+
+[node name="ContinueHint" type="Label" parent="Panel/VBox" unique_id=1520753791]
+layout_mode = 2
+text = "▼"
+
+[node name="CharacterSprite" type="TextureRect" parent="." unique_id=11312953]
+layout_mode = 0
+offset_left = 744.0
+offset_top = -400.0
+offset_right = 1044.0
+texture = ExtResource("2_giuoe")
+expand_mode = 4
+stretch_mode = 5

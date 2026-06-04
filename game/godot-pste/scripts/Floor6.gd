@@ -1,8 +1,9 @@
 extends FloorBase
 
 func _ready() -> void:
+	await GameManager.show_dialogue("floor6_intro")
+
 	$CanvasLayer/StairsDownButton.pressed.connect(go_down)
-	$CanvasLayer/StairsUpButton.pressed.connect(go_up)
 
 	$CanvasLayer/BenchButton.pressed.connect(_on_bench)
 	$CanvasLayer/StairsUpButton.disabled = !GameManager.ss.is_adrenaline_active()

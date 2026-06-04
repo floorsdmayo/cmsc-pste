@@ -1,9 +1,10 @@
 extends Control
 
-const minigame_id = "find"
+const minigame_id = "find_the_difference"
 signal completed(success: bool)
 
 @export var total_differences: int = 4
+@export var fast_time_threshold: float = 30.0
 
 var found_differences: Array[int] = []
 var elapsed_time: float = 0.0

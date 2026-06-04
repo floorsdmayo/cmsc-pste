@@ -1,6 +1,7 @@
 extends FloorBase
 
 func _ready() -> void:
+	await GameManager.show_dialogue("floor2_intro")
 	$CanvasLayer/StairsDownButton.pressed.connect(go_down)
 	$CanvasLayer/StairsUpButton.pressed.connect(go_up)
 	$CanvasLayer/JigsawButton.pressed.connect(_launch_jigsaw)
@@ -18,7 +19,9 @@ func _launch_jigsaw() -> void:
 func _on_minigame_done(id: String, success: bool) -> void:
 	if id == "jigsaw":
 		$CanvasLayer/JigsawButton.disabled = GameManager.ss.is_minigame_cleared("jigsaw")
-
+	if success:
+		await GameManager.show_dialogue("floor2_post")
+		
 func _update_button() -> void:
 	if not has_node("CanvasLayer/StairsDownButton"):
 		return
