@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bgoysqiyqelpu"]
+
+[ext_resource type="Script" uid="uid://bbod425yqsm3d" path="res://scripts/minigames/SnakeGame.gd" id="1_jsjq0"]
+[ext_resource type="Script" uid="uid://ctlrj1yctkbhh" path="res://scripts/minigames/SnakeBoard.gd" id="2_ewiym"]
+
+[node name="SnakeGame" type="Control" unique_id=1760008438]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jsjq0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=203285898]
+
+[node name="UI" type="VBoxContainer" parent="CanvasLayer" unique_id=170061906]
+offset_left = 620.0
+offset_top = 200.0
+offset_right = 696.0
+offset_bottom = 312.0
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/UI" unique_id=382863273]
+layout_mode = 2
+
+[node name="PhaseLabel" type="Label" parent="CanvasLayer/UI" unique_id=1581446743]
+layout_mode = 2
+
+[node name="TauntLabel" type="Label" parent="CanvasLayer/UI" unique_id=272463997]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/UI" unique_id=1287868564]
+layout_mode = 2
+text = "Give Up?"
+
+[node name="GameBoard" type="ColorRect" parent="CanvasLayer" unique_id=1945494719]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ewiym")

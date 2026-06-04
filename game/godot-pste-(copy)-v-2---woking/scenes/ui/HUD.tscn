@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://drahu5xsleh4b"]
+
+[ext_resource type="Script" uid="uid://ccjb5b2sdn43t" path="res://scripts/HUD.gd" id="1_kw0id"]
+
+[node name="HUD" type="Control" unique_id=1218443215]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kw0id")
+
+[node name="StatsBar" type="HBoxContainer" parent="." unique_id=1190436177]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StaminaLabel" type="Label" parent="StatsBar" unique_id=1570677997]
+layout_mode = 2
+
+[node name="HeartsLabel" type="Label" parent="StatsBar" unique_id=1367946622]
+layout_mode = 2
+
+[node name="InventoryButton" type="Button" parent="." unique_id=376151380]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
