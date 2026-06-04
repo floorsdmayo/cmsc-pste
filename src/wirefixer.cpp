@@ -39,12 +39,11 @@ void WireFixer::setup(int num_wires) {
     // shuffle right side
     right_order.clear();
     for (int i = 0; i < total_wires; i++) right_order.push_back(i);
-    for (int i = total_wires - 1; i > 0; i--) {
-        int j = rand() % (i + 1);
-        int tmp = right_order[i];
-        right_order[i] = right_order[j];
-        right_order[j] = tmp;
-    }
+    right_order.clear();
+    right_order.push_back(1);  // position 0 (top) = blue
+    right_order.push_back(3);  // position 1 (2nd) = yellow  
+    right_order.push_back(2);  // position 2 (3rd) = green
+    right_order.push_back(0);  // position 3 (bottom) = red
 
     connections.clear();
     for (int i = 0; i < total_wires; i++) connections.push_back(-1);

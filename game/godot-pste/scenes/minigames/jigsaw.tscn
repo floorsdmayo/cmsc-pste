@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ddpxdsdhdsb61"]
 
-[ext_resource type="Script" uid="uid://dgn1a885nvqle" path="res://scripts/minigames/jigsaw.gd" id="1_dy8rs"]
+[ext_resource type="Script" uid="uid://d3c8dmbkhx7ql" path="res://scripts/minigames/jigsaw.gd" id="1_dy8rs"]
 
 [node name="Jigsaw" type="Control" unique_id=419995739]
 layout_mode = 3
