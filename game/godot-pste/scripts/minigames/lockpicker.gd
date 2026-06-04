@@ -153,7 +153,7 @@ func _setup_labels() -> void:
 	$UI/GiveUpButton.add_theme_stylebox_override("pressed", give_up_hover)
 	$UI/GiveUpButton.add_theme_stylebox_override("focus", give_up_normal)
 	$UI/GiveUpButton.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	$UI/GiveUpButton.custom_minimum_size = Vector2(200, 50)
+	$UI/GiveUpButton.custom_minimum_size = Vector2(200, 30)
 	$UI/GiveUpButton.add_theme_font_size_override("font_size", 18)
 	$UI/GiveUpButton.add_theme_color_override("font_color", Color(1, 0.2, 0.2))
 	$UI/GiveUpButton.text = "✕ Give Up"

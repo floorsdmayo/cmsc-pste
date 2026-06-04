@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dfg0hawpnntbq"]
+
+[ext_resource type="Script" uid="uid://b2u7vy6r4lpan" path="res://scripts/Floor7.gd" id="1_47nms"]
+
+[node name="Floor7" type="Node2D" unique_id=212878587]
+script = ExtResource("1_47nms")
+floor_number = 7
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=570791287]
+
+[node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=1759083218]
+offset_left = 800.0
+offset_top = 300.0
+offset_right = 1013.0
+offset_bottom = 331.0
+text = "Go Down (Cost: 1 Stamina)"
+
+[node name="SnakeButton" type="Button" parent="CanvasLayer" unique_id=952284313]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Fight Sssir Rrryan"
+
+[node name="Label" type="Label" parent="." unique_id=783612270]
+top_level = true
+offset_left = 1070.0
+offset_top = 10.0
+offset_right = 1123.0
+offset_bottom = 33.0
+text = "Floor 7"
