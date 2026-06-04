@@ -17,9 +17,8 @@ offset_bottom = 40.0
 [node name="MessageLabel" type="Label" parent="UI" unique_id=303333963]
 layout_mode = 2
 
-[node name="GiveUpButton" type="Button" parent="UI" unique_id=29196489]
+[node name="TimerLabel" type="Label" parent="UI" unique_id=1293442771]
 layout_mode = 2
-text = "Give Up"
 
 [node name="Blocks" type="HBoxContainer" parent="UI" unique_id=978261616]
 layout_mode = 2
@@ -53,3 +52,7 @@ layout_mode = 2
 
 [node name="Button9" type="Button" parent="UI/Blocks" unique_id=957282538]
 layout_mode = 2
+
+[node name="GiveUpButton" type="Button" parent="UI" unique_id=29196489]
+layout_mode = 2
+text = "Give Up"

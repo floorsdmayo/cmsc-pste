@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://ohops32du1bf"]
+
+[ext_resource type="Script" uid="uid://ohpxv1wi1y0i" path="res://scripts/minigames/FindTheDifferenceGame.gd" id="1_graif"]
+[ext_resource type="Texture2D" uid="uid://bo63xxb3mumwu" path="res://assets/minigame/FindTheDifferenceGame/left_image.png" id="2_graif"]
+[ext_resource type="Texture2D" uid="uid://chn7y6wjxlq3u" path="res://assets/minigame/FindTheDifferenceGame/right_image.png" id="3_hua17"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_graif"]
+radius = 32.0
+height = 228.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_js73p"]
+size = Vector2(69, 73)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fwvg6"]
+radius = 24.0
+height = 86.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hua17"]
+radius = 32.06244
+
+[node name="FindTheDifferenceGame" type="Control" unique_id=2052188738]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_graif")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=89088203]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=1760358698]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=2089215791]
+custom_minimum_size = Vector2(0, 575)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LeftImage" type="TextureRect" parent="MarginContainer/VBox/HBox" unique_id=131952691]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_graif")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="RightImage" type="TextureRect" parent="MarginContainer/VBox/HBox" unique_id=477948470]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_hua17")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Diff1" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=872972048 groups=["difference_hotspot"]]
+position = Vector2(29, 260)
+metadata/diff_id = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff1" unique_id=1952620192]
+position = Vector2(2, 1)
+shape = SubResource("CapsuleShape2D_graif")
+
+[node name="Diff2" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=144836546 groups=["difference_hotspot"]]
+position = Vector2(314, 264)
+metadata/diff_id = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff2" unique_id=699121626]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_js73p")
+metadata/diff_id = 1
+
+[node name="Diff3" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=2096858119 groups=["difference_hotspot"]]
+position = Vector2(390, 244)
+metadata/diff_id = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff3" unique_id=79728298]
+position = Vector2(2, -3)
+shape = SubResource("CapsuleShape2D_fwvg6")
+metadata/diff_id = 1
+
+[node name="Diff4" type="Area2D" parent="MarginContainer/VBox/HBox/RightImage" unique_id=1942725478 groups=["difference_hotspot"]]
+position = Vector2(541, 184)
+metadata/diff_id = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MarginContainer/VBox/HBox/RightImage/Diff4" unique_id=1865970161]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_hua17")
+metadata/diff_id = 1
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBox" unique_id=124458653]
+layout_mode = 2
+
+[node name="TimerLabel" type="Label" parent="MarginContainer/VBox" unique_id=110374578]
+layout_mode = 2
