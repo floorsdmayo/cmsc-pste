@@ -19,8 +19,10 @@ var time_left: float = TIME_LIMIT
 var timer_active: bool = false
 
 func _ready() -> void:
+	get_tree().get_first_node_in_group("room_container").hide()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_setup_cards()
+	
 	$UI/GiveUpButton.pressed.connect(_on_give_up_pressed)
 	$UI/MessageLabel.text = "Match all the pairs!"
 	timer_active = true

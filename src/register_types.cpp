@@ -13,7 +13,7 @@ using namespace godot;
 void initialize_pste_module(ModuleInitializationLevel p_level) {
     if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) return;
     // register other classes here
-    ClassDB::register_class<StaminaSystem>();
+    ClassDB::register_class<PSTEStamina>();
     ClassDB::register_class<WireFixer>();
     ClassDB::register_class<SnakeLogic>();
     ClassDB::register_class<PongGame>();

@@ -42,8 +42,6 @@ func _input(event: InputEvent) -> void:
 	if not right_rect.has_point(event.global_position):
 		return
 
-	var local_click = event.global_position - right_image.global_position
-
 	var clicked = false
 	for spot in get_tree().get_nodes_in_group("difference_hotspot"):
 		if spot == null or not is_instance_valid(spot):
@@ -51,7 +49,6 @@ func _input(event: InputEvent) -> void:
 		if spot.get_parent() != right_image:
 			continue
 
-		# Works for any shape: circle, capsule, rectangle, polygon
 		if _point_in_area2d(spot, event.global_position):
 			clicked = true
 			var diff_id: int = spot.get_meta("diff_id", -1)
@@ -68,11 +65,7 @@ func _point_in_area2d(area: Area2D, global_point: Vector2) -> bool:
 		var shape = child.shape
 		if shape == null:
 			continue
-		# Transform point into the shape's local space
 		var local_point = child.global_transform.affine_inverse() * global_point
-		if shape.collide(Transform2D(), CircleShape2D.new(), Transform2D(0, local_point)):
-			return true
-		# Simpler: use the shape's own method
 		if shape is RectangleShape2D:
 			var half = (shape as RectangleShape2D).size * 0.5
 			if abs(local_point.x) <= half.x and abs(local_point.y) <= half.y:
@@ -87,11 +80,12 @@ func _point_in_area2d(area: Area2D, global_point: Vector2) -> bool:
 			if (local_point - closest).length() <= cap.radius:
 				return true
 	return false
-	
+
 func _mark_found(diff_id: int) -> void:
 	found_differences.append(diff_id)
 	_place_marker(diff_id, left_image)
 	_place_marker(diff_id, right_image)
+	_flash_correct()
 	_update_status()
 	if found_differences.size() >= total_differences:
 		_on_win()
@@ -105,20 +99,56 @@ func _place_marker(diff_id: int, parent: TextureRect) -> void:
 		if spot.get_parent() != parent:
 			continue
 
-		var marker = ColorRect.new()
-		marker.color = Color(1, 0, 0, 0.55)
-		marker.size = Vector2(60, 60)
-		marker.position = spot.position - marker.size * 0.5
-		parent.add_child(marker)
+		# Persistent checkmark dot that stays after pulse fades
+		var dot = ColorRect.new()
+		dot.color = Color(0.2, 1.0, 0.4, 0.85)
+		dot.size = Vector2(16, 16)
+		dot.position = spot.position - dot.size * 0.5
+		parent.add_child(dot)
+
+		# Pulse ring — grows and fades out
+		var ring = Panel.new()
+		ring.self_modulate = Color(0.2, 1.0, 0.4, 0.9)
+		ring.size = Vector2(20, 20)
+		ring.pivot_offset = Vector2(10, 10)
+		ring.position = spot.position - ring.size * 0.5
+
+		# Style it as a circle outline using a StyleBoxFlat
+		var style = StyleBoxFlat.new()
+		style.bg_color = Color(0, 0, 0, 0)
+		style.border_color = Color(0.2, 1.0, 0.4, 0.9)
+		style.border_width_left = 3
+		style.border_width_right = 3
+		style.border_width_top = 3
+		style.border_width_bottom = 3
+		style.corner_radius_top_left = 999
+		style.corner_radius_top_right = 999
+		style.corner_radius_bottom_left = 999
+		style.corner_radius_bottom_right = 999
+		ring.add_theme_stylebox_override("panel", style)
+		parent.add_child(ring)
+
+		# Animate: scale up and fade out simultaneously
+		var tween = create_tween().set_parallel(true)
+		tween.tween_property(ring, "scale", Vector2(4.5, 4.5), 0.6).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		tween.tween_property(ring, "self_modulate", Color(0.2, 1.0, 0.4, 0.0), 0.6).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+		await get_tree().create_timer(0.6).timeout
+		ring.queue_free()
 		return
-		
+
+func _flash_correct() -> void:
+	modulate = Color(0.6, 1.0, 0.6)
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color(1, 1, 1), 0.35)
+
 func _wrong_guess() -> void:
 	status_label.text = "Wrong! ❌  (-1 heart)"
 	if has_node("/root/GameManager"):
 		get_node("/root/GameManager").lose_heart()
 	modulate = Color(1, 0.3, 0.3)
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color(1, 1, 1), 0.3)
 	await get_tree().create_timer(0.3).timeout
-	modulate = Color(1, 1, 1)
 	_update_status()
 
 func _update_status() -> void:

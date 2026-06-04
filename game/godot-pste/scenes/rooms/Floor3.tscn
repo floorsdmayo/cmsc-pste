@@ -4,8 +4,6 @@
 
 [node name="Floor3" type="Node2D" unique_id=1875832302]
 script = ExtResource("1_5txks")
-floor_number = 3
-stair_cost = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=353753499]
 
@@ -22,6 +20,13 @@ offset_top = 300.0
 offset_right = 1013.0
 offset_bottom = 331.0
 text = "Go Down (Cost: 3 Stamina)"
+
+[node name="LockpickerButton" type="Button" parent="CanvasLayer" unique_id=1301193049]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
 
 [node name="Label" type="Label" parent="." unique_id=1280060871]
 top_level = true

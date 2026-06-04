@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://uvf5xrmgfgof"]
 
-[ext_resource type="Script" uid="uid://dovf1643ahqyr" path="res://scripts/minigames/lockpicker_v_2.gd" id="1_d7gxp"]
+[ext_resource type="Script" uid="uid://cqi0oydg2wdye" path="res://scripts/minigames/lockpicker.gd" id="1_0g8d1"]
 
 [node name="Lockpicker V2" type="Control" unique_id=1204585239]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_d7gxp")
+script = ExtResource("1_0g8d1")
 
 [node name="UI" type="VBoxContainer" parent="." unique_id=171357848]
 layout_mode = 0

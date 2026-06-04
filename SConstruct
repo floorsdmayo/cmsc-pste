@@ -5,7 +5,7 @@ env.Append(CPPPATH=["src/"])
 sources = Glob("src/*.cpp")
 
 library = env.SharedLibrary(
-    "game/bin/pste{}{}".format(
+    "game/godot-pste/bin/pste{}{}".format(
         env["suffix"], env["SHLIBSUFFIX"]
     ),
     source=sources,

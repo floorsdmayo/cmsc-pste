@@ -30,6 +30,13 @@ offset_right = 228.0
 offset_bottom = 431.0
 text = "Remember..."
 
+[node name="BenchButton" type="Button" parent="CanvasLayer" unique_id=88358849]
+offset_left = 800.0
+offset_top = 400.0
+offset_right = 914.0
+offset_bottom = 431.0
+text = "Rest at Bench"
+
 [node name="Label" type="Label" parent="." unique_id=1033668821]
 top_level = true
 offset_left = 1070.0

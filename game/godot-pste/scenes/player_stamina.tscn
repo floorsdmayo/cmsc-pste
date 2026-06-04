@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://8n2158e7vb8o"]
+
+[node name="PlayerStamina" type="PSTEStamina" unique_id=1343514366]
