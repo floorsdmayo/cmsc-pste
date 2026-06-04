@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://q65ey7i63uwh"]
+
+[ext_resource type="Script" uid="uid://d207laowlm004" path="res://scripts/Floor5.gd" id="1_2flnv"]
+
+[node name="Floor5" type="Node2D" unique_id=736745906]
+script = ExtResource("1_2flnv")
+floor_number = 5
+stair_cost = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2136611604]
+
+[node name="StairsUpButton" type="Button" parent="CanvasLayer" unique_id=199648008]
+offset_left = 150.0
+offset_top = 300.0
+offset_right = 340.0
+offset_bottom = 331.0
+text = "Go Up (Cost: 3 Stamina)"
+
+[node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=1525066471]
+offset_left = 800.0
+offset_top = 300.0
+offset_right = 1013.0
+offset_bottom = 331.0
+text = "Go Down (Cost: 3 Stamina)"
+
+[node name="WireFixerButton" type="Button" parent="CanvasLayer" unique_id=631193334]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 228.0
+offset_bottom = 431.0
+text = "Fix Wires"
+
+[node name="BenchButton" type="Button" parent="CanvasLayer" unique_id=1460873986]
+offset_left = 800.0
+offset_top = 400.0
+offset_right = 914.0
+offset_bottom = 431.0
+text = "Rest at Bench"
+
+[node name="Label" type="Label" parent="." unique_id=728668537]
+top_level = true
+offset_left = 1070.0
+offset_top = 10.0
+offset_right = 1123.0
+offset_bottom = 33.0
+text = "Floor 5"

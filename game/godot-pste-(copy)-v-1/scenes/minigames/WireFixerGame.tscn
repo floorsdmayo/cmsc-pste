@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bjqm6pmegtpnj"]
+
+[ext_resource type="Script" uid="uid://dka7mjrrsdhas" path="res://scripts/minigames/WireFixer.gd" id="1_rdp3m"]
+
+[node name="WireFixerGame" type="Control" unique_id=2082377579]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rdp3m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1539227087]
+
+[node name="WirePanel" type="HBoxContainer" parent="CanvasLayer" unique_id=1988685532]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftColumn" type="VBoxContainer" parent="CanvasLayer/WirePanel" unique_id=184010604]
+layout_mode = 2
+
+[node name="CenterArea" type="VBoxContainer" parent="CanvasLayer/WirePanel" unique_id=490608385]
+layout_mode = 2
+
+[node name="RightColumn" type="VBoxContainer" parent="CanvasLayer/WirePanel" unique_id=1555128959]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CanvasLayer" unique_id=1860305155]
+visible = false
+offset_right = 76.0
+offset_bottom = 31.0
+text = "Give Up?"

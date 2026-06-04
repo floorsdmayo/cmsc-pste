@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bo3grtepew8me"]
+
+[ext_resource type="Script" uid="uid://dtpckv4cqraw6" path="res://scripts/Floor6.gd" id="1_bydje"]
+
+[node name="Floor6" type="Node2D" unique_id=813532560]
+script = ExtResource("1_bydje")
+floor_number = 6
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1663622669]
+
+[node name="StairsUpButton" type="Button" parent="CanvasLayer" unique_id=81517194]
+offset_left = 150.0
+offset_top = 300.0
+offset_right = 340.0
+offset_bottom = 331.0
+text = "Go Up (Cost: 1 Stamina)"
+
+[node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=339492325]
+offset_left = 800.0
+offset_top = 300.0
+offset_right = 1013.0
+offset_bottom = 331.0
+text = "Go Down (Cost: 1 Stamina)"
+
+[node name="BenchButton" type="Button" parent="CanvasLayer" unique_id=1480544451]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Rest at Bench"
+
+[node name="Label" type="Label" parent="." unique_id=393388812]
+top_level = true
+offset_left = 1070.0
+offset_top = 10.0
+offset_right = 1123.0
+offset_bottom = 33.0
+text = "Floor 6"
