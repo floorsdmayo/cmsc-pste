@@ -1,0 +1,26 @@
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="godot-pste (Copy) v2 - Woking"
+run/main_scene="uid://d2jnpgtqybq65"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+PSTEStamina="*uid://8n2158e7vb8o"
+GameManager="*res://scripts/GameManager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[global_group]
+
+room_container=""

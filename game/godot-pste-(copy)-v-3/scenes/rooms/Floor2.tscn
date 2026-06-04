@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c6mvq8ot1vx8l"]
+
+[ext_resource type="Script" uid="uid://bisdg6xd3jfgq" path="res://scripts/Floor2.gd" id="1_1flty"]
+
+[node name="Floor2" type="Node2D" unique_id=496897651]
+script = ExtResource("1_1flty")
+floor_number = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=823396649]
+
+[node name="StairsUpButton" type="Button" parent="CanvasLayer" unique_id=1964106167]
+offset_left = 150.0
+offset_top = 300.0
+offset_right = 340.0
+offset_bottom = 331.0
+text = "Go Up"
+
+[node name="StairsDownButton" type="Button" parent="CanvasLayer" unique_id=1797266468]
+offset_left = 800.0
+offset_top = 300.0
+offset_right = 1013.0
+offset_bottom = 331.0
+text = "Go Down"
+
+[node name="JigsawButton" type="Button" parent="CanvasLayer" unique_id=1208942552]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
+
+[node name="Label" type="Label" parent="." unique_id=287093319]
+top_level = true
+offset_left = 1070.0
+offset_top = 10.0
+offset_right = 1123.0
+offset_bottom = 33.0
+text = "Floor 2"

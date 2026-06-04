@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://nely0ve5q2gl"]
+
+[ext_resource type="Script" uid="uid://cuaobflguagwx" path="res://scripts/Floor1.gd" id="1_05aw6"]
+
+[node name="Floor1" type="Node2D" unique_id=136479256]
+script = ExtResource("1_05aw6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1344830224]
+
+[node name="StairsUpButton" type="Button" parent="CanvasLayer" unique_id=1675818439]
+offset_left = 150.0
+offset_top = 300.0
+offset_right = 340.0
+offset_bottom = 331.0
+text = "Go Up "
+
+[node name="FindTheDButton" type="Button" parent="CanvasLayer" unique_id=705214878]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
+
+[node name="GateButton" type="Button" parent="CanvasLayer" unique_id=375698627]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 257.0
+offset_bottom = 431.0
+text = "Pick Locks"
+
+[node name="ElevatorButton" type="Button" parent="CanvasLayer" unique_id=1005424884]
+offset_left = 150.0
+offset_top = 400.0
+offset_right = 363.0
+offset_bottom = 431.0
+text = "Elevator"
+
+[node name="Label" type="Label" parent="." unique_id=2099447362]
+top_level = true
+offset_left = 1070.0
+offset_top = 10.0
+offset_right = 1123.0
+offset_bottom = 33.0
+text = "Floor 1"
