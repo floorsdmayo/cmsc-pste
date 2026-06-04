@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://uvf5xrmgfgof"]
 
-[ext_resource type="Script" uid="uid://dtthadbiv72t7" path="res://scripts/minigames/lockpicker.gd" id="1_0g8d1"]
+[ext_resource type="Script" uid="uid://cqi0oydg2wdye" path="res://scripts/minigames/lockpicker.gd" id="1_0g8d1"]
 
 [node name="Lockpicker V2" type="Control" unique_id=1204585239]
 layout_mode = 3
@@ -17,8 +17,9 @@ offset_bottom = 40.0
 [node name="MessageLabel" type="Label" parent="UI" unique_id=303333963]
 layout_mode = 2
 
-[node name="TimerLabel" type="Label" parent="UI" unique_id=1293442771]
+[node name="GiveUpButton" type="Button" parent="UI" unique_id=29196489]
 layout_mode = 2
+text = "Give Up"
 
 [node name="Blocks" type="HBoxContainer" parent="UI" unique_id=978261616]
 layout_mode = 2
@@ -52,7 +53,3 @@ layout_mode = 2
 
 [node name="Button9" type="Button" parent="UI/Blocks" unique_id=957282538]
 layout_mode = 2
-
-[node name="GiveUpButton" type="Button" parent="UI" unique_id=29196489]
-layout_mode = 2
-text = "Give Up"
