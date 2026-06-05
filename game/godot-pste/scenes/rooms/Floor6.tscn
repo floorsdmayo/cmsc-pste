@@ -34,6 +34,7 @@ offset_bottom = 331.0
 text = "Go Down"
 
 [node name="BenchButton" type="Button" parent="CanvasLayer" unique_id=1480544451]
+visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Rest at Bench"

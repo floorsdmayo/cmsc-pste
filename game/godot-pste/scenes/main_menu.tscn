@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bn8pg7to35gtp"]
+
+[ext_resource type="Script" uid="uid://cegmntgp1fgbp" path="res://scenes/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://dyskj5c41s0yh" path="res://assets/background.png" id="2_ekxnf"]
+
+[node name="MainMenu" type="Control" unique_id=1600368713]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="Background" type="TextureRect" parent="." unique_id=510480696]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ekxnf")
+expand_mode = 1
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=502837896]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1714389259]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.107
+anchor_right = 0.246
+anchor_bottom = 0.873
+offset_right = 452.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="VBox" unique_id=606554903]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="VBox" unique_id=532210477]
+layout_mode = 2
+
+[node name="BtnStart" type="Button" parent="VBox" unique_id=554794217]
+layout_mode = 2
+
+[node name="BtnQuit" type="Button" parent="VBox" unique_id=1759458862]
+layout_mode = 2

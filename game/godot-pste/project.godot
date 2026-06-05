@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="godot-pste"
-run/main_scene="uid://d2jnpgtqybq65"
+run/main_scene="uid://bn8pg7to35gtp"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -34,3 +34,4 @@ window/stretch/aspect="expand"
 
 room_container=""
 dialogue_box=""
+room_background=""

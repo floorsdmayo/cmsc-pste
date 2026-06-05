@@ -156,6 +156,7 @@ const DIALOGUES: Dictionary = {
 	# ENDING — Default intro (before Run Away minigame)
 	# -------------------------------------------------------------------------
 	"ending_default_intro": [
+		"[CMD:BLACK_BG]",
 		"You turn your back and sprint away from the elevator.",
 		"Suddenly, the guard's face distorts into a pitch-black grin.",
 		"The ambient lights flicker out completely as terrifying, oncoming shadows begin creeping from the edge of the lobby walls.",
@@ -166,6 +167,7 @@ const DIALOGUES: Dictionary = {
 	# ENDING — Default outro (after Run Away minigame)
 	# -------------------------------------------------------------------------
 	"ending_default_outro": [
+		"[CMD:BLACK_BG]",
 		"I hammered against the final latch in perfect rhythm, forcing the side door to burst open!",
 		"I collapsed outside into the cold, ordinary night air, running down the street without looking back.",
 		"Behind me, the CSB building remained completely dead and dark.",
@@ -194,19 +196,24 @@ const DIALOGUES: Dictionary = {
 	# -------------------------------------------------------------------------
 	# ENDING — Secret outro (after Snake minigame)
 	# -------------------------------------------------------------------------
-	"ending_secret_outro": [
-		"The snake cleanly occupied the final empty square of the grid.",
-		"[SIR RYAN] IMPOSSIBLE!!!",
-		"The cloak was discarded. A shrill yell echoed in the room as Sir Ryan stomped toward me in absolute disbelief.",
-		"Then, everything flashed into a pure, blinding white.",
-		"I open my eyes.",
-		"I am standing right in the middle of the real CSB lobby. It's daytime, bright, and loud with the chaotic chatter of students moving between periods.",
-		"A phone plays music nearby, second-years are arguing over a project, and the reception desk is fully staffed. The elevator dings normally, letting out a crowd of regular people.",
-		"My bag is on my shoulder. My water bottle is in my hand.",
-		"I laugh softly to myself — a short sound that no one around me finds strange.",
-		"I run a hand through my hair, look once more at the ordinary fluorescent lighting, and choose to take the stairs instead of the elevator.",
-		"I have class on the sixth floor. And somewhere way above me, I am almost certain a ceiling tile is swaying gently, even though there isn't any breeze.",
-		"As usual.",
-		"- The End (TRUE ENDING) -",
-	],
+"ending_secret_outro": [
+	"The snake cleanly occupied the final empty square of the grid.",
+	"[CMD:SPRITE:SIR RYAN,res://assets/sprites/sir_angry.png]",
+	"[SIR RYAN] IMPOSSIBLE!!!",
+	"The cloak was discarded. A shrill yell echoed in the room as Sir Ryan stomped toward me in absolute disbelief.",
+	"[CMD:WHITE_OUT]",
+	"Then, everything flashed into a pure, blinding white.",
+	"[CMD:BLACK_BG]",
+	"I open my eyes.",
+	"[CMD:RESTORE_BG]",
+	"I am standing right in the middle of the real CSB lobby. It's daytime, bright, and loud with the chaotic chatter of students moving between periods.",
+	"A phone plays music nearby, second-years are arguing over a project, and the reception desk is fully staffed. The elevator dings normally, letting out a crowd of regular people.",
+	"My bag is on my shoulder. My water bottle is in my hand.",
+	"I laugh softly to myself — a short sound that no one around me finds strange.",
+	"I run a hand through my hair, look once more at the ordinary fluorescent lighting, and choose to take the stairs instead of the elevator.",
+	"I have class on the sixth floor. And somewhere way above me, I am almost certain a ceiling tile is swaying gently, even though there isn't any breeze.",
+	"As usual.",
+	"[CMD:FADE_BLACK]",
+	"- The End (TRUE ENDING) -",
+],
 }

@@ -10,35 +10,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k6x13")
-
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=863779307]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBox" type="VBoxContainer" parent="MarginContainer" unique_id=508500474]
-layout_mode = 2
-
-[node name="InstructionLabel" type="Label" parent="MarginContainer/VBox" unique_id=1424989522]
-layout_mode = 2
-
-[node name="BarContainer" type="Control" parent="MarginContainer/VBox" unique_id=400921975]
-custom_minimum_size = Vector2(600, 40)
-layout_mode = 2
-
-[node name="SafeZone" type="ColorRect" parent="MarginContainer/VBox/BarContainer" unique_id=400727348]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="IndicatorBar" type="ColorRect" parent="MarginContainer/VBox/BarContainer" unique_id=1355273950]
-custom_minimum_size = Vector2(12, 40)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SquaresContainer" type="HBoxContainer" parent="MarginContainer/VBox" unique_id=1648705059]
-layout_mode = 2
-
-[node name="ResultLabel" type="Label" parent="MarginContainer/VBox" unique_id=429148041]
-layout_mode = 2
