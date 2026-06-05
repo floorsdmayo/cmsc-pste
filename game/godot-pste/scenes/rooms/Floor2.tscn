@@ -1,12 +1,23 @@
 [gd_scene format=3 uid="uid://c6mvq8ot1vx8l"]
 
 [ext_resource type="Script" uid="uid://bisdg6xd3jfgq" path="res://scripts/Floor2.gd" id="1_1flty"]
+[ext_resource type="Texture2D" uid="uid://cydnshy00a7o1" path="res://assets/rooms/2nd.png" id="2_smfkm"]
 
 [node name="Floor2" type="Node2D" unique_id=496897651]
 script = ExtResource("1_1flty")
 floor_number = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=823396649]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=1525802470]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_smfkm")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="StairsUpButton" type="Button" parent="CanvasLayer" unique_id=1964106167]
 offset_left = 150.0
@@ -27,7 +38,7 @@ offset_left = 150.0
 offset_top = 400.0
 offset_right = 257.0
 offset_bottom = 431.0
-text = "Pick Locks"
+text = "Jigsaw"
 
 [node name="Label" type="Label" parent="." unique_id=287093319]
 top_level = true

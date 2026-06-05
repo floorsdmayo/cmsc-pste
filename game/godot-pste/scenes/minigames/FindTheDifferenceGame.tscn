@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ohops32du1bf"]
 
 [ext_resource type="Script" uid="uid://ohpxv1wi1y0i" path="res://scripts/minigames/FindTheDifferenceGame.gd" id="1_graif"]
-[ext_resource type="Texture2D" uid="uid://bo63xxb3mumwu" path="res://assets/minigame/FindTheDifferenceGame/left_image.png" id="2_graif"]
-[ext_resource type="Texture2D" uid="uid://chn7y6wjxlq3u" path="res://assets/minigame/FindTheDifferenceGame/right_image.png" id="3_hua17"]
+[ext_resource type="Texture2D" uid="uid://bo63xxb3mumwu" path="res://assets/minigames/findthedifference/left_image.png" id="2_graif"]
+[ext_resource type="Texture2D" uid="uid://chn7y6wjxlq3u" path="res://assets/minigames/findthedifference/right_image.png" id="3_hua17"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_graif"]
 radius = 32.0

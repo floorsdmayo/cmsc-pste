@@ -63,19 +63,17 @@ func _ready() -> void:
 	continue_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	continue_hint.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	continue_hint.add_theme_color_override("font_color", Color(0.63, 0.50, 0.31))
-	
-	# Pin CharacterSprite's bottom to the dialogue box top, grow upward
-	character_sprite.anchor_left   = 0.05
+
 	character_sprite.anchor_left   = 0.75
 	character_sprite.anchor_right  = 1.0
-	character_sprite.anchor_bottom = 0.68   # matches dialogue box top anchor
+	character_sprite.anchor_bottom = 0.68
 	character_sprite.offset_left   = 0
-	character_sprite.offset_right  = 8   
+	character_sprite.offset_right  = 8
 	character_sprite.offset_top    = -500
 	character_sprite.offset_bottom = 0
-
 	character_sprite.expand_mode   = TextureRect.EXPAND_FIT_HEIGHT_PROPORTIONAL
 	character_sprite.stretch_mode  = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+
 func start(lines: Array[String]) -> void:
 	_lines        = lines
 	_current_line = 0
@@ -117,7 +115,7 @@ func _apply_speaker(key: String) -> void:
 		character_sprite.show()
 	else:
 		character_sprite.hide()
-		
+
 func _input(event: InputEvent) -> void:
 	if not visible:
 		return

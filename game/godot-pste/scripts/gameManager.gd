@@ -121,10 +121,7 @@ func change_room(scene_path: String) -> void:
 		container.get_child(0).queue_free()
 	container.add_child(load(scene_path).instantiate())
 
-# ── inventory / flags ─────────────────────────────────────────────────────────
-
-func add_to_inventory(item: String) -> void:
-	if item not in inventory: inventory.append(item)
+# ── flags ─────────────────────────────────────────────────────────
 
 func set_flag(key: String, value: Variant) -> void:  game_flags[key] = value
 func get_flag(key: String, default: Variant = false) -> Variant:

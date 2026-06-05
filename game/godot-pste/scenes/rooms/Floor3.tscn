@@ -1,12 +1,23 @@
 [gd_scene format=3 uid="uid://da537vr1e2rth"]
 
 [ext_resource type="Script" uid="uid://dl5rmjuuxwgv3" path="res://scripts/Floor3.gd" id="1_5txks"]
+[ext_resource type="Texture2D" uid="uid://btjr7oj4xyfn1" path="res://assets/rooms/3rd.png" id="2_0hk72"]
 
 [node name="Floor3" type="Node2D" unique_id=1875832302]
 script = ExtResource("1_5txks")
 floor_number = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=353753499]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=717493130]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0hk72")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="StairsUpButton" type="Button" parent="CanvasLayer" unique_id=1537130412]
 offset_left = 150.0

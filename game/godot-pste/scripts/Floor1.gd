@@ -9,7 +9,7 @@ func _ready() -> void:
 
 	$CanvasLayer/FindTheDButton.disabled = GameManager.ss.is_minigame_cleared("find")
 func _launch_find() -> void:
-	GameManager.launch_minigame("res://scenes/minigames/FindTheDifference.tscn")
+	GameManager.launch_minigame("res://scenes/minigames/FindTheDifferenceGame.tscn")
 
 func _on_minigame_done(id: String, success: bool) -> void:
 	if id == "find":
@@ -19,7 +19,7 @@ func _on_minigame_done(id: String, success: bool) -> void:
 
 func _start_default_ending() -> void:
 	$CanvasLayer/StairsUpButton.hide()
-	$CanvasLayer/FindDiffButton.hide()
+	$CanvasLayer/FindTheDButton.hide()
 
 	await GameManager.show_dialogue("ending_default_intro")
 	GameManager.launch_minigame("res://scenes/minigames/RunAwayGame.tscn")

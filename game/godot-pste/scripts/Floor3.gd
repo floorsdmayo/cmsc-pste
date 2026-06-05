@@ -18,7 +18,7 @@ func _launch_lockpicker() -> void:
 
 func _on_minigame_done(id: String, success: bool) -> void:
 	if id == "lockpicker":
-		$CanvasLayer/MemoryButton.disabled = GameManager.ss.is_minigame_cleared("lockpicker")
+		$CanvasLayer/LockpickerButton.disabled = GameManager.ss.is_minigame_cleared("lockpicker")
 	if success:
 		await GameManager.show_dialogue("floor3_post")
 
